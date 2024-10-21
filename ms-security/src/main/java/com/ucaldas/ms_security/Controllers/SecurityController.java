@@ -9,7 +9,7 @@ import com.ucaldas.ms_security.Repositories.SessionRepository;
 import com.ucaldas.ms_security.Repositories.UserRepository;
 import com.ucaldas.ms_security.Services.EncryptionService;
 import com.ucaldas.ms_security.Services.JwtService;
-import com.ucaldas.ms_security.Services.NotificationsService;
+// import com.ucaldas.ms_security.Services.NotificationsService;
 import com.ucaldas.ms_security.Services.ValidatorsService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,8 +34,8 @@ public class SecurityController {
     private EncryptionService theEncryptionService;
     @Autowired
     private JwtService theJwtService;
-    @Autowired
-    private NotificationsService theNotificationsService;
+    // @Autowired
+    // private NotificationsService theNotificationsService;
     @Autowired
     private ValidatorsService theValidatorsService;
 
@@ -87,21 +87,21 @@ public class SecurityController {
             this.theSessionRepository.delete(theSession);
         }
     }
-    @PostMapping("/resetpassword/{userId}")
-    public String resetPassword(@PathVariable String userId, final HttpServletResponse response) throws IOException{
-        User theActualUser = this.theUserRepository.findById(userId).orElse(null);
-            if (theActualUser != null){
-                String number = this.generateRandom();
-                theActualUser.setResetCode(number);
-                this.theUserRepository.save(theActualUser);
-                theNotificationsService.sendResetLink(theActualUser, number);
-            }else{
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                return "message: User not found";
-            }
-        return "message: Reset code sent";
+    // @PostMapping("/resetpassword/{userId}")
+    // public String resetPassword(@PathVariable String userId, final HttpServletResponse response) throws IOException{
+    //     User theActualUser = this.theUserRepository.findById(userId).orElse(null);
+    //         if (theActualUser != null){
+    //             String number = this.generateRandom();
+    //             theActualUser.setResetCode(number);
+    //             this.theUserRepository.save(theActualUser);
+    //             theNotificationsService.sendResetLink(theActualUser, number);
+    //         }else{
+    //             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+    //             return "message: User not found";
+    //         }
+    //     return "message: Reset code sent";
 
-    }
+    // }
         
 
     @PostMapping("/resetpassword/{userId}/{code}")
