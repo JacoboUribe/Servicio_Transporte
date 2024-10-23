@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flask,python,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,python,java
 
+ms-security/src/main/resources/application.properties
+
 ### Flask ###
 instance/*
 !instance/.gitignore

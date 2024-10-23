@@ -58,5 +58,14 @@ def send_email_endpoint():
         print(f'Failed to send email')
         return jsonify({'error': f'failed to send email'})
 
+@app.route('/get-users', methods=['GET'])
+def get_users():
+    print('Llegó la solicitud')
+
+    return jsonify([
+        {'name': 'Luis', 'email': 'name@example.com'},
+        {'name': 'John Doe', 'email': 'name@example.com'}
+    ])
+
 if __name__ == '__main__':
     app.run(debug=True)
