@@ -8,75 +8,52 @@ public class Session {
     private String _id;
     private String token;
     private String expiration;
-    private String code2fa;
-    private Boolean active = false;
+    private int code2fa;
     @DBRef
     private User user;
 
-    public Session() {}
+    public Session(String token, String expiration) {
+      this.token = token;
+      this.expiration = expiration;
+  }
 
-    public Session(String code2fa, User user) {
-      this.code2fa = code2fa;
+  public String get_id() {
+      return _id;
+  }
+
+  public String getToken() {
+      return token;
+  }
+
+  public String getExpiration() {
+      return expiration;
+  }
+
+  public void set_id(String _id) {
+      this._id = _id;
+  }
+
+  public void setToken(String token) {
+      this.token = token;
+  }
+
+  public void setExpiration(String expiration) {
+      this.expiration = expiration;
+  }
+
+  public User getUser() {
+      return user;
+  }
+
+  public void setUser(User user) {
       this.user = user;
-    }
-  
-    public Session(String code2fa) {
+  }
+
+  public int getcode2fa() {
+      return code2fa;
+  }
+
+  public void setcode2fa(int code2fa) {
       this.code2fa = code2fa;
-    }
-
-    public Session(String token, String expiration,String code2fa, Boolean active) {
-        this.token = token;
-        this.code2fa = code2fa;
-        this.active = active;
-        this.expiration = expiration;
-    }
-
-
-    public String getCode2fa() {
-        return this.code2fa;
-      }
-    
-    public void setCode2fa(String code2fa) {
-        this.code2fa = code2fa;
-      }
-
-    public Boolean isActive() {
-        return this.active;
-      }
-    
-    public void setActive(Boolean active) {
-        this.active = active;
-      }  
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(String expiration) {
-        this.expiration = expiration;
-    }
+  }
 }

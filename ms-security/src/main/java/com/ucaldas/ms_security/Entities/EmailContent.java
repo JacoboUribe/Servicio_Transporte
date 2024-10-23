@@ -1,13 +1,11 @@
 package com.ucaldas.ms_security.Entities;
 
-import java.util.List;
 
 public class EmailContent {
     private String subject;
     private String content;
-    private List<Recipient> recipients;
+    private String recipients;
 
-    // Getters and setters
     public String getSubject() {
         return subject;
     }
@@ -24,11 +22,11 @@ public class EmailContent {
         this.content = content;
     }
 
-    public List<Recipient> getRecipients() {
+    public String getRecipients() {
         return recipients;
     }
 
-    public void setRecipients(List<Recipient> recipients) {
-        this.recipients = recipients;
+    public void setRecipients(String recipient) {
+        this.recipients = recipient;
     }
 }
