@@ -35,3 +35,8 @@ import './routes/lots'
 import './routes/businesses'
 import './routes/natural_peoples'
 import './routes/customers'
+
+
+//yizus Routes
+import './routes/shares'
+import './routes/contracts.ts'
