@@ -35,6 +35,7 @@ import './routes/lots'
 import './routes/businesses'
 import './routes/natural_peoples'
 import './routes/customers'
+import './routes/product_categories'
 
 
 //yizus Routes
