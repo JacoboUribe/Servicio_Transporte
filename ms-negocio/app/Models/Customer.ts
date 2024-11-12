@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Product from './Product'
 import Business from './Business'
-import NaturalPerson from './NaturalPerson'
+import NaturalPerson from './NaturalPeople'
 
 export default class Customer extends BaseModel {
   @column({ isPrimary: true })

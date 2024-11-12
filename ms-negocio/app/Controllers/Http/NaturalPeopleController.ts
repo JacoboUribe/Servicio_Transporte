@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import NaturalPerson from 'App/Models/NaturalPerson';
+import NaturalPerson from 'App/Models/NaturalPeople';
 
 export default class NaturalPeopleController {
     public async find({ request, params }: HttpContextContract) {
