@@ -6,12 +6,12 @@ import NaturalPerson from './NaturalPeople'
 
 export default class Customer extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id_customer: number
 
-  @column()
-  public phone_number: string
+  @column() 
+  public phone_number: number
 
-  @column()
+  @column() 
   public number_orders: number
 
   @column.dateTime({ autoCreate: true })
@@ -34,4 +34,6 @@ export default class Customer extends BaseModel {
     foreignKey: 'customer_id'
   })
   public naturalpersons: HasOne<typeof NaturalPerson>
+
+
 }

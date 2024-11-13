@@ -41,3 +41,4 @@ import './routes/product_categories'
 //yizus Routes
 import './routes/shares'
 import './routes/contracts.ts'
+import './routes/clients.ts'

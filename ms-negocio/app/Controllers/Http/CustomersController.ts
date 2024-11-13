@@ -6,6 +6,7 @@ export default class CustomersController {
         if (params.id) {
             let theCustomer: Customer = await Customer.findOrFail(params.id)
             return theCustomer;
+            
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {

@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Client from './Client'
 
 export default class Contract extends BaseModel {
   @column({ isPrimary: true })
@@ -11,10 +12,10 @@ export default class Contract extends BaseModel {
   @column()
   public end_date: DateTime
 
-  @belongsTo (() => Client, {
-    foreignKey: 'id_client'
+  @hasMany(() => Client ,{
+    foreignKey: 'id_client', 
   })
-  public id_client: BelongsTo<typeof Client>
+  public cliente  
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
