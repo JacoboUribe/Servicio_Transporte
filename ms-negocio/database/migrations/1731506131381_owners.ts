@@ -5,21 +5,12 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id_owner')
-
-
+      table.increments('id')
       table.string('phone')
       table.string('date_of_acquisition')
-      table.string('id_user')
-            .unsigned()
-            .references('users.id_user')
-            .onDelete('CASCADE')
-
-      table.string('id_driver')
-            .unsigned()
-            .references('drivers.id_driver')
-            .onDelete('CASCADE')
-            
+      table.string('driver_id')
+        .unsigned()
+        .references('drivers.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -5,17 +5,10 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id_service')
+      table.increments('id')
       table.double('amount')
       table.date('date')
       table.string('description')
-
-      table.foreign('id_administrator')
-      .references('id').inTable('administrators')
-      .unsigned()
-      .references('users.id_user')
-      .onDelete('CASCADE')
-      
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

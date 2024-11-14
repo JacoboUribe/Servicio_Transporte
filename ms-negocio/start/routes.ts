@@ -24,7 +24,7 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-//Jacobo Routes
+
 import './routes/departments'
 import './routes/cities'
 import './routes/addresses'
@@ -36,9 +36,16 @@ import './routes/businesses'
 import './routes/natural_peoples'
 import './routes/customers'
 import './routes/product_categories'
-
-
-//yizus Routes
 import './routes/shares'
-import './routes/contracts.ts'
-import './routes/clients.ts'
+import './routes/contracts'
+import './routes/spents'
+import './routes/turns'
+import './routes/restaurants'
+import './routes/services'
+import './routes/hotels'
+import './routes/owners'
+import './routes/drivers'
+import './routes/administrators'
+import './routes/routes'
+import './routes/bills'
+

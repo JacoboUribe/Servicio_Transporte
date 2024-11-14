@@ -1,19 +1,18 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Driver from './Driver'
 
-export default class Owner extends BaseModel {
+export default class Turn extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-
-  @column()  
-  public phone: string
+  @column()
+  public driver_id : number
 
   @column()
-  public date_of_acquisition: DateTime
+  public start_date : Date
 
   @column()
-  public driver_id: number
+  public end_date : Date
 
   @belongsTo(() => Driver, {
     foreignKey: 'driver_id'

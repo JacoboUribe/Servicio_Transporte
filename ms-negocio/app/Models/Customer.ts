@@ -3,10 +3,11 @@ import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis
 import Product from './Product'
 import Business from './Business'
 import NaturalPerson from './NaturalPeople'
+import Contract from './Contract'
 
 export default class Customer extends BaseModel {
   @column({ isPrimary: true })
-  public id_customer: number
+  public id: number
 
   @column() 
   public phone_number: number
@@ -34,6 +35,11 @@ export default class Customer extends BaseModel {
     foreignKey: 'customer_id'
   })
   public naturalpersons: HasOne<typeof NaturalPerson>
+
+  @hasMany(() => Contract, {
+    foreignKey: 'customer_id'
+  })
+  public contracts: HasMany<typeof Contract>
 
 
 }

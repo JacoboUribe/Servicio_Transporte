@@ -18,6 +18,9 @@ export default class Route extends BaseModel {
   @column()
   public delivery_date: Date
 
+  @column()
+  public contract_id:number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

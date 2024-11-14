@@ -6,14 +6,11 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      
       table.double('amount')
       table.double('interest')
-      table.string('id_contract')
+      table.integer('contract_id')
             .unsigned()
             .references('contracts.id')
-            .onDelete('CASCADE')
-
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
