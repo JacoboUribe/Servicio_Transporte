@@ -1,52 +1,46 @@
  import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Service from 'App/Models/Service';
+import ServiceValidator from 'App/Validators/ServiceValidator';
 
 export default class ServicesController {
-
-    //Route.get("/service", "servicesController.index"); 
-    //listar los servicios
-    public async index({}: HttpContextContract) {
-        return {
-            message: "Listado de servicios",
-            data: {
-                mensaje: "listados los servicios"
+    public async find({ request, params }: HttpContextContract) {
+        if (params.id) {
+            let theService: Service = await Service.findOrFail(params.id)
+            theService.load("spents")
+            theService.load("hotels")
+            theService.load("restaurants")
+            theService.load("administrator")
+            return theService;
+        } else {
+            const data = request.all()
+            if ("page" in data && "per_page" in data) {
+                const page = request.input('page', 1);
+                const perPage = request.input("per_page", 20);
+                return await Service.query().preload("spents").preload("hotels").preload("restaurants").preload("administrator").paginate(page, perPage)
+            } else {
+                return await Service.query().preload("spents").preload("hotels").preload("restaurants").preload("administrator")
             }
         }
     }
-    
-    //Route.get("/service:id", "servicesController.show");
-    //mostrar un servicio por su id
-    public async show({params}:HttpContextContract){
-        return {
-            message: "mostrando servicio",
-            "id": params.id
-        }
+
+    public async create({ request }: HttpContextContract) {
+        const body = await request.validate(ServiceValidator)
+        const theService = await Service.create(body)
+        return theService
     }
 
-    //Route.post("/service", "servicesController.store");
-    //crear
-    public async store({request}:HttpContextContract){
-        return {
-            message: "creando servicio",
-            "informacion": request.body()
-        }
+    public async update({ params, request }: HttpContextContract) {
+        const theService: Service = await Service.findOrFail(params.id);
+        const body = await request.validate(ServiceValidator);
+        theService.amount = body.amount;
+        theService.date = body.date;
+        theService.description = body.description;
+        return await theService.save();
     }
 
-    //Route.put("/service:id", "servicesController.update");
-    //actualizar
-    public async update({params, request}:HttpContextContract){
-        return {
-            message: "actualizando servicio",
-            "id": params.id,
-            "imformacion": request.body()   
-        }
-    }
-
-    //Route.delete("/service:id", "servicesController.delete");
-    //eliminar
-    public async delete({params}:HttpContextContract){
-        return {
-            message: "eliminando servicio",
-            "id": params.id
-        }
+    public async delete({ params, response }: HttpContextContract) {
+        const theService: Service = await Service.findOrFail(params.id);
+            response.status(204);
+            return await theService.delete();
     }
 }

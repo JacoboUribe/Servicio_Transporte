@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import City from './City'
-import Route from './Route'
+import OrderRoute from './OrderRoute'
 
 export default class Address extends BaseModel {
   @column({ isPrimary: true })
@@ -36,10 +36,9 @@ export default class Address extends BaseModel {
   })
   public cities: BelongsTo<typeof City>
 
-  @manyToMany(() => Route, {
-    pivotTable: 'order_routes',
-    pivotForeignKey: 'address_id',
-    pivotRelatedForeignKey: 'route_id',
+  @hasMany (() => OrderRoute,{
+    foreignKey: 'address_id'
   })
-  public routes: ManyToMany<typeof Route>
+  public order_routes: HasMany<typeof OrderRoute>
+
 }

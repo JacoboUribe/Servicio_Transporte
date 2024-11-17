@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
-import City from './City'
-import Owner from './Owner'
-import Driver from './Driver'
-import Contract from './Contract'
+import { BaseModel, column, HasMany, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Insurance from './Insurance'
+import Route from './Route'
+import VehicleDriver from './VehicleDriver'
+import VehicleOwner from './VehicleOwner'
+import Operation from './Operation'
 
 export default class Vehicle extends BaseModel {
   @column({ isPrimary: true })
@@ -17,42 +17,32 @@ export default class Vehicle extends BaseModel {
   public model:string
 
   @column()
-  public load_capacity:Date
+  public load_capacity:number
 
   @hasMany(() => Insurance, {
     foreignKey: 'vehicle_id'
   })
   public insurances: HasMany<typeof Insurance>
 
-  @manyToMany(() => City, {
-    pivotTable: 'operations',
-    pivotForeignKey: 'vehicle_id',
-    pivotRelatedForeignKey: 'city_id',
-    pivotColumns: ['start_date','end_date']
+  @hasMany(() => Route, {
+    foreignKey: 'vehicle_id'
   })
-  public vehicles: ManyToMany<typeof City>
+  public routes: HasMany<typeof Route>
+  
+  @hasMany(() => VehicleDriver, {
+    foreignKey: 'vehicle_id'
+  })
+  public vehicles_drivers: HasMany<typeof VehicleDriver>
+  
+  @hasMany(() => VehicleOwner, {
+    foreignKey: 'vehicle_id'
+  })
+  public vehicle_owners: HasMany<typeof VehicleOwner>
 
-  @manyToMany(() => Owner, {
-    pivotTable: 'vehicle_owners',
-    pivotForeignKey: 'vehicle_id',
-    pivotRelatedForeignKey: 'owner_id'
+  @hasMany(() => Operation, {
+    foreignKey: 'vehicle_id'
   })
-  public owners: ManyToMany<typeof Owner>
-
-  @manyToMany(() => Driver, {
-    pivotTable: 'vehicle_drivers',
-    pivotForeignKey: 'vehicle_id',
-    pivotRelatedForeignKey: 'driver_id'  
-  })
-  public drivers: ManyToMany<typeof Driver>
-
-  @manyToMany(() => Contract, {
-    pivotTable: 'route',
-    pivotForeignKey: 'vehicle_id',
-    pivotRelatedForeignKey: 'contract_id',
-    pivotColumns: ['starting_point','destination_point', 'distance', 'delivery_date']
-  })
-  public contracts: ManyToMany<typeof Contract>
+  public operations: HasMany<typeof Operation>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

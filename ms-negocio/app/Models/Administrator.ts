@@ -9,6 +9,9 @@ export default class Administrator extends BaseModel {
   @column() 
   public service_id: number
 
+  @column()
+  public user_id:number
+
   @column() 
   public type_administrator: string
 

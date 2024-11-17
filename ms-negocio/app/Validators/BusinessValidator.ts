@@ -6,6 +6,7 @@ export default class BusinessValidator {
 
 
   public schema = schema.create({
+    id: schema.number.optional([rules.unique({ table: 'businesses', column: 'id', where: { id: this.ctx.request.input('id') } })]),
     type_company: schema.string({ trim: true }),
     address: schema.string({ trim: true }),
     customer_id: schema.number([rules.exists({ table: 'customers', column: 'id' }),])

@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Department from './Department'
 import Address from './Address'
 import DistributionCenter from './DistributionCenter'
-import Vehicle from './Vehicle'
+import Operation from './Operation'
 
 export default class City extends BaseModel {
   @column({ isPrimary: true })
@@ -39,11 +39,8 @@ export default class City extends BaseModel {
   })
   public distribution_centers: HasMany<typeof DistributionCenter>
 
-  @manyToMany(() => Vehicle, {
-    pivotTable: 'operations',
-    pivotForeignKey: 'city_id',
-    pivotRelatedForeignKey: 'vehicle_id',
-    pivotColumns: ['start_date','end_date']
+  @hasMany(() => Operation, {
+    foreignKey: 'city_id'
   })
-  public vehicles: ManyToMany<typeof Vehicle>
+  public operations: HasMany<typeof Operation>
 }

@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column, HasOne, hasOne, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, BelongsTo, column, HasMany, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Driver from './Driver'
-import Vehicle from './Vehicle'
+import VehicleOwner from './VehicleOwner'
+import Spent from './Spent'
 
 export default class Owner extends BaseModel {
   @column({ isPrimary: true })
@@ -16,17 +17,23 @@ export default class Owner extends BaseModel {
   @column()
   public driver_id: number
 
+  @column()
+  public user_id:number
+
   @belongsTo(() => Driver, {
     foreignKey: 'driver_id'
   })
   public drivers: BelongsTo<typeof Driver>
 
-  @manyToMany(() => Vehicle, {
-    pivotTable: 'vehicle_owners',
-    pivotForeignKey: 'owner_id',
-    pivotRelatedForeignKey: 'vehicle_id',
+  @hasMany(()=> Spent, {
+    foreignKey: 'owner_id'
   })
-  public vehicles: ManyToMany<typeof Vehicle>
+  public spents: HasMany <typeof Spent>
+
+  @hasMany(()=> VehicleOwner, {
+    foreignKey: 'owner_id'
+  })
+  public vehicle_owners: HasMany <typeof VehicleOwner>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

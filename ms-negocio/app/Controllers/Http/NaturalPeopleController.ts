@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import NaturalPeople from 'App/Models/NaturalPeople';
 import NaturalPerson from 'App/Models/NaturalPeople';
+import NaturalPeopleValidator from 'App/Validators/NaturalPeopleValidator';
 
 export default class NaturalPeopleController {
     public async find({ request, params }: HttpContextContract) {
@@ -15,21 +17,23 @@ export default class NaturalPeopleController {
             } else {
                 return await NaturalPerson.query()
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theNaturalPerson: NaturalPerson = await NaturalPerson.create(body);
-        return theNaturalPerson;
+        const body = await request.validate(NaturalPeopleValidator)
+        const theNaturalPeople = await NaturalPeople.create(body)
+        return theNaturalPeople
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theNaturalPerson: NaturalPerson = await NaturalPerson.findOrFail(params.id);
-        const body = request.body();
+        const body = await request.validate(NaturalPeopleValidator);
         theNaturalPerson.type_document = body.type_document;
         theNaturalPerson.birthdate = body.birthdate;
+        theNaturalPerson.customer_id = body.customer_id;
+        theNaturalPerson.business_id = body.business_id;
+        theNaturalPerson.user_id = body.user_id;
         return await theNaturalPerson.save();
     }
 

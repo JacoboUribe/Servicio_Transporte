@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Turn from 'App/Models/Turn';
+import TurnValidator from 'App/Validators/TurnValidator';
 
 export default class TurnsController {
     public async find({ request, params }: HttpContextContract) {
@@ -19,16 +20,17 @@ export default class TurnsController {
     }
     
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theTurn: Turn = await Turn.create(body);
-        return theTurn;
+        const body = await request.validate(TurnValidator)
+        const theTurn = await Turn.create(body)
+        return theTurn
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theTurn: Turn = await Turn.findOrFail(params.id);
-        const body = request.body();
+        const body = await request.validate(TurnValidator);
         theTurn.start_date = body.start_date;
         theTurn.end_date = body.end_date;
+        theTurn.driver_id = body.driver_id;
         return await theTurn.save();
     }
 

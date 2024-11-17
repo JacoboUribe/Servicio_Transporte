@@ -9,10 +9,10 @@ export default class Turn extends BaseModel {
   public driver_id : number
 
   @column()
-  public start_date : Date
+  public start_date : DateTime
 
   @column()
-  public end_date : Date
+  public end_date : DateTime
 
   @belongsTo(() => Driver, {
     foreignKey: 'driver_id' 

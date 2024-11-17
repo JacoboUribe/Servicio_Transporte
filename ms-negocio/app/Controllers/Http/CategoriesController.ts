@@ -1,35 +1,38 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Category from 'App/Models/Category';
+import CategoryValidator from 'App/Validators/CategoryValidator';
 
 export default class CategoriesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCategory: Category = await Category.findOrFail(params.id)
+            theCategory.load("categoriesPadre")
+            theCategory.load("product_categories")
             return theCategory;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Category.query().paginate(page, perPage)
+                return await Category.query().preload("categoriesPadre").preload("product_categories").paginate(page, perPage)
             } else {
-                return await Category.query()
+                return await Category.query().preload("categoriesPadre").preload("product_categories")
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theCategory: Category = await Category.create(body);
-        return theCategory;
+        const body = await request.validate(CategoryValidator)
+        const theCategory = await Category.create(body)
+        return theCategory
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theCategory: Category = await Category.findOrFail(params.id);
-        const body = request.body();
+        const body = await request.validate(CategoryValidator);
         theCategory.category_name = body.category_name;
         theCategory.description = body.description;
+        theCategory.category_id = body.category_id;
         return await theCategory.save();
     }
 

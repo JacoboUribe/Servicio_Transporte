@@ -1,54 +1,45 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Contract from 'App/Models/Contract';
+import ContractValidator from 'App/Validators/ContractValidator';
 
 export default class ContractsController {
 
-    
-    //Route.get("/shares", "SharesController.index"); 
-    //listar los contratos
-    public async index({}: HttpContextContract) {
-        return {
-            message: "Listado de contratos",
-            data: {
-                mensaje: "listados los contratos"
+    public async find({ request, params }: HttpContextContract) {
+        if (params.id) {
+            let theContract: Contract   = await Contract.findOrFail(params.id)
+            theContract.load("routes")
+            theContract.load("shares")
+            return theContract;
+        } else {
+            const data = request.all()
+            if ("page" in data && "per_page" in data) {
+                const page = request.input('page', 1);
+                const perPage = request.input("per_page", 20);
+                return await Contract.query().preload("routes").preload("shares").paginate(page, perPage)
+            } else {
+                return await Contract.query().preload("routes").preload("shares")
             }
         }
     }
 
-    //Route.get("/shares:id", "SharesController.show");
-    //mostrar un contrato por su id
-    public async show({params}:HttpContextContract){
-        return {
-            message: "mostrando contrato",
-            "id": params.id
-        }
-    }
-    
-    //Route.post("/shares", "SharesController.store");
-    //crear
-    public async store({request}:HttpContextContract){
-        return {
-            message: "creando contrato",
-            "informacion": request.body()
-        }
-    }
-    
-    //Route.put("/shares:id", "SharesController.update");
-    //actualizar
-    public async update({params, request}:HttpContextContract){
-        return {
-            message: "actualizando contrato",
-            "id": params.id,
-            "imformacion": request.body()   
-        }
-    }
-    
-    //Route.delete("//:id", "SharesController.delete");
-    //eliminar
-    public async delete({params}:HttpContextContract){
-        return {
-            message: "eliminando contrato",
-            "id": params.id
-        }
+    public async create({ request }: HttpContextContract) {
+        const body = await request.validate(ContractValidator)
+        const theContract = await Contract.create(body)
+        return theContract
     }
 
+    public async update({ params, request }: HttpContextContract) {
+        const theContract: Contract = await Contract.findOrFail(params.id);
+        const body = await request.validate(ContractValidator);
+        theContract.start_date = body.start_date;
+        theContract.end_date = body.end_date;
+        theContract.customer_id = body.customer_id;
+        return await theContract.save();
+    }
+
+    public async delete({ params, response }: HttpContextContract) {
+        const theContract: Contract = await Contract.findOrFail(params.id);
+            response.status(204);
+            return await theContract.delete();
+    }
 }

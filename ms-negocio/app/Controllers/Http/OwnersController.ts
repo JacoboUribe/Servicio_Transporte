@@ -1,52 +1,46 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Owner from 'App/Models/Owner';
+import OwnerValidator from 'App/Validators/OwnerValidator';
 
 export default class OwnersController {
-     //Route.get("/owners", "ownersController.index"); 
-    //listar los contratos
-    public async index({}: HttpContextContract) {
-        return {
-            message: "Listado de contratos",
-            data: {
-                mensaje: "listados los contratos"
+    public async find({ request, params }: HttpContextContract) {
+        if (params.id) {
+            let theOwner: Owner = await Owner.findOrFail(params.id)
+            theOwner.load("vehicle_owners")
+            theOwner.load("spents")
+            return theOwner;
+        } else {
+            const data = request.all()
+            if ("page" in data && "per_page" in data) {
+                const page = request.input('page', 1);
+                const perPage = request.input("per_page", 20);
+                return await Owner.query().preload("vehicle_owners").preload("spents").paginate(page, perPage)
+            } else {
+                return await Owner.query().preload("vehicle_owners").preload("spents")
             }
         }
     }
 
-    //Route.get("/owners:id", "ownersController.show");
-    //mostrar un contrato por su id
-    public async show({params}:HttpContextContract){
-        return {
-            message: "mostrando contrato",
-            "id": params.id
-        }
+    public async create({ request }: HttpContextContract) {
+        const body = await request.validate(OwnerValidator)
+        const theOwner = await Owner.create(body)
+        return theOwner
     }
 
-    //Route.post("/owners", "ownersController.store");
-    //crear
-    public async store({request}:HttpContextContract){
-        return {
-            message: "creando contrato",
-            "informacion": request.body()
-        }
+    public async update({ params, request }: HttpContextContract) {
+        const theOwner: Owner = await Owner.findOrFail(params.id);
+        const body = await request.validate(OwnerValidator);
+        theOwner.phone = body.phone;
+        theOwner.date_of_acquisition = body.date_of_acquisition;
+        theOwner.user_id = body.user_id;
+        theOwner.driver_id = body.driver_id;
+        return await theOwner.save();
     }
 
-    //Route.put("/owners:id", "ownersController.update");
-    //actualizar
-    public async update({params, request}:HttpContextContract){
-        return {
-            message: "actualizando contrato",
-            "id": params.id,
-            "imformacion": request.body()   
-        }
-    }
-
-    //Route.delete("//:id", "ownersController.delete");
-    //eliminar
-    public async delete({params}:HttpContextContract){
-        return {
-            message: "eliminando contrato",
-            "id": params.id
-        }
+    public async delete({ params, response }: HttpContextContract) {
+        const theOwner: Owner = await Owner.findOrFail(params.id);
+            response.status(204);
+            return await theOwner.delete();
     }
     
 }

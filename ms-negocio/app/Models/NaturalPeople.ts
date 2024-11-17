@@ -10,7 +10,7 @@ export default class NaturalPeople extends BaseModel {
   public type_document: string
 
   @column()
-  public birthdate: Date
+  public birthdate: DateTime
 
   @column()
   public customer_id:number

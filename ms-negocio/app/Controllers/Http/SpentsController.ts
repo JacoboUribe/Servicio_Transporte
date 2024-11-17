@@ -1,53 +1,44 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Spent from 'App/Models/Spent';
+import SpentValidator from 'App/Validators/SpentValidator';
 
 export default class SpentsController {
-    
-        //Route.get("/spents", "spentsController.index"); 
-        //listar los gastoss
-        public async index({}: HttpContextContract) {
-            return {
-                message: "Listado de gastoss",
-                data: {
-                    mensaje: "listados los gastoss"
-                }
+    public async find({ request, params }: HttpContextContract) {
+        if (params.id) {
+            let theSpent: Spent = await Spent.findOrFail(params.id)
+            theSpent.load("bills")
+            return theSpent;
+        } else {
+            const data = request.all()
+            if ("page" in data && "per_page" in data) {
+                const page = request.input('page', 1);
+                const perPage = request.input("per_page", 20);
+                return await Spent.query().preload("bills").paginate(page, perPage)
+            } else {
+                return await Spent.query().preload("bills")
             }
         }
+    }
 
-        //Route.get("/spents:id", "spentsController.show");
-        //mostrar un gastos por su id
-        public async show({params}:HttpContextContract){
-            return {
-                message: "mostrando gastos",
-                "id": params.id
-            }
-        }
+    public async create({ request }: HttpContextContract) {
+        const body = await request.validate(SpentValidator)
+        const theSpent = await Spent.create(body)
+        return theSpent
+    }
 
-        //Route.post("/spents", "spentsController.store");   
-        //crear
-        public async store({request}:HttpContextContract){
-            return {
-                message: "creando gastos",
-                "informacion": request.body()
-            }
-        }
+    public async update({ params, request }: HttpContextContract) {
+        const theSpent: Spent = await Spent.findOrFail(params.id)
+        const body = await request.validate(SpentValidator)
+        theSpent.details = body.details;
+        theSpent.driver_id = body.driver_id;
+        theSpent.service_id = body.service_id;
+        return theSpent.save();
+    }
 
-        //Route.put("/spents:id", "spentsController.update");
-        //actualizar
-        public async update({params, request}:HttpContextContract){
-            return {
-                message: "actualizando gastos",
-                "id": params.id,
-                "imformacion": request.body()   
-            }
-        }
-
-        //Route.delete("//:id", "spentsController.delete");
-        //eliminar
-        public async delete({params}:HttpContextContract){
-            return {
-                message: "eliminando gastos",
-                "id": params.id
-            }
-        }
+    public async delete({ params, response }: HttpContextContract) {
+        const theSpent: Spent = await Spent.findOrFail(params.id);
+            response.status(204);
+            return await theSpent.delete();
+    }
 
 }

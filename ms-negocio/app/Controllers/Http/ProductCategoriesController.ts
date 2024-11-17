@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ProductCategory from 'App/Models/ProductCategory';
+import ProductCategoryValidator from 'App/Validators/ProductCategoryValidator';
 export default class ProductCategoriesController {
         public async find({ request, params }: HttpContextContract) {
         if (params.id) {
@@ -14,13 +15,12 @@ export default class ProductCategoriesController {
             } else {
                 return await ProductCategory.query()
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theProductCategory: ProductCategory = await ProductCategory.create(body);
-        return theProductCategory;
+        const body = await request.validate(ProductCategoryValidator)
+        const theProductCategory = await ProductCategory.create(body)
+        return theProductCategory
     }
 }

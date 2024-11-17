@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, BelongsTo, column, HasMany, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Customer from './Customer'
 import Lot from './Lot'
-import Category from './Category'
+import ProductCategory from './ProductCategory'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
@@ -21,7 +21,7 @@ export default class Product extends BaseModel {
   public description: string
 
   @column()
-  public expiration_date: Date
+  public expiration_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -39,10 +39,9 @@ export default class Product extends BaseModel {
   })
   public lots: BelongsTo<typeof Lot>
 
-  @manyToMany(() => Category, {
-    pivotTable: 'product_categories',
-    pivotForeignKey: 'product_id',
-    pivotRelatedForeignKey: 'category_id',
+  @hasMany(() => ProductCategory, {
+    foreignKey: 'product_id'
   })
-  public categories: ManyToMany<typeof Category>
+  public product_categories: HasMany<typeof ProductCategory>
+
 }

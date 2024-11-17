@@ -10,7 +10,7 @@ export default class Customer extends BaseModel {
   public id: number
 
   @column() 
-  public phone_number: number
+  public phone_number: string
 
   @column() 
   public number_orders: number

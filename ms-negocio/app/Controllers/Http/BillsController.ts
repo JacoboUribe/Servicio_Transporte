@@ -1,53 +1,44 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Bill from 'App/Models/Bill';
+import BillValidator from 'App/Validators/BillValidator';
 
 export default class BillsController {
-
-    //Route.get("/bills", "BillsController.index"); 
-    //listar las facturas
-    public async index({}: HttpContextContract) {
-        return {
-            message: "Listado de facturas",
-            data: {
-                mensaje: "listados las facturas"
+    public async find({ request, params }: HttpContextContract) {
+        if (params.id) {
+            let theBill: Bill = await Bill.findOrFail(params.id)
+            return theBill;
+        } else {
+            const data = request.all()
+            if ("page" in data && "per_page" in data) {
+                const page = request.input('page', 1);
+                const perPage = request.input("per_page", 20);
+                return await Bill.query().paginate(page, perPage)
+            } else {
+                return await Bill.query()
             }
         }
     }
+    
+    public async create({ request }: HttpContextContract) {
+        const body = await request.validate(BillValidator)
+        const theBill = await Bill.create(body)
+        return theBill
+    }
 
-    //Route.get("/bills:id", "BillsController.show");
-    //mostrar una factura por su id
-    public async show({params}:HttpContextContract){
-        return {
-            message: "mostrando factura",
-            "id": params.id
-        }
+    public async update({ params, request }: HttpContextContract) {
+        const theBill: Bill = await Bill.findOrFail(params.id);
+        const body = await request.validate(BillValidator);
+        theBill.amount = body.amount;
+        theBill.date_time = body.date_time;
+        theBill.share_id = body.share_id;
+        theBill.spent_id = body.spent_id;
+        return await theBill.save();
     }
-    
-    //Route.post("/bills", "BillsController.store");
-    //crear
-    public async store({request}:HttpContextContract){
-        return {
-            message: "creando factura",
-            "informacion": request.body()
-        }
-    }
-    
-    //Route.put("/bills:id", "BillsController.update");
-    //actualizar
-    public async update({params, request}:HttpContextContract){
-        return {
-            message: "actualizando factura",
-            "id": params.id,
-            "imformacion": request.body()   
-        }
-    }
-    
-    //Route.delete("//:id", "BillsController.delete");
-    //eliminar
-    public async delete({params}:HttpContextContract){
-        return {
-            message: "eliminando factura",
-            "id": params.id
-        }
+
+    public async delete({ params, response }: HttpContextContract) {
+        const theBill: Bill = await Bill.findOrFail(params.id);
+            response.status(204);
+            return await theBill.delete();
     }
 
 }

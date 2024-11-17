@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Operation from 'App/Models/Operation';
+import OperationValidator from 'App/Validators/OperationValidator';
 
 export default class OperationsController {
     public async find({ request, params }: HttpContextContract) {
@@ -17,17 +18,20 @@ export default class OperationsController {
             }
         }
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theOperation: Operation = await Operation.create(body);
-        return theOperation;
+        const body = await request.validate(OperationValidator)
+        const theOperation = await Operation.create(body)
+        return theOperation
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theOperation: Operation = await Operation.findOrFail(params.id);
-        const body = request.body();
+        const body = await request.validate(OperationValidator);
         theOperation.start_date = body.start_date;
         theOperation.end_date= body.end_date;
+        theOperation.vehicle_id = body.vehicle_id;
+        theOperation.city_id = body.city_id;
         return await theOperation.save();
     }
 

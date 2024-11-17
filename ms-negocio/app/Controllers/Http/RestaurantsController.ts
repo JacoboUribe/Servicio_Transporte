@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Restaurant from 'App/Models/Restaurant';
+import RestaurantValidator from 'App/Validators/RestaurantValidator';
 
 export default class RestaurantsController {
     public async find({ request, params }: HttpContextContract) {
@@ -15,21 +16,21 @@ export default class RestaurantsController {
             } else {
                 return await Restaurant.query()
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theRestaurant: Restaurant = await Restaurant.create(body);
-        return theRestaurant;
+        const body = await request.validate(RestaurantValidator)
+        const theRestaurant = await Restaurant.create(body)
+        return theRestaurant
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theRestaurant: Restaurant = await Restaurant.findOrFail(params.id);
-        const body = request.body();
+        const body = await request.validate(RestaurantValidator);
         theRestaurant.restaurant_name = body.restaurant_name;
         theRestaurant.restaurant_address = body.restaurant_address;
+        theRestaurant.service_id = body.service_id;
         return await theRestaurant.save();
     }
 

@@ -1,36 +1,39 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product';
+import ProductValidator from 'App/Validators/ProductValidator';
 
 export default class ProductsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theProduct: Product = await Product.findOrFail(params.id)
+            theProduct.load("product_categories")
             return theProduct;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Product.query().paginate(page, perPage)
+                return await Product.query().preload("product_categories").paginate(page, perPage)
             } else {
-                return await Product.query()
+                return await Product.query().preload("product_categories")
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theProduct: Product = await Product.create(body);
-        return theProduct;
+        const body = await request.validate(ProductValidator)
+        const theProduct = await Product.create(body)
+        return theProduct
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theProduct: Product = await Product.findOrFail(params.id);
-        const body = request.body();
-        theProduct.product_name = body.location;
-        theProduct.description = body.capacity;
+        const body = await request.validate(ProductValidator);
+        theProduct.product_name = body.product_name;
+        theProduct.description = body.description;
         theProduct.expiration_date = body.expiration_date;
+        theProduct.lot_id = body.lot_id;
+        theProduct.customer_id = body.customer_id;
         return await theProduct.save();
     }
 
