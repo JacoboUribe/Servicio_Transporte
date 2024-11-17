@@ -16,6 +16,9 @@ export default class NaturalPeople extends BaseModel {
   public customer_id:number
 
   @column()
+  public user_id:number
+
+  @column()
   public business_id: number
 
   @column.dateTime({ autoCreate: true })

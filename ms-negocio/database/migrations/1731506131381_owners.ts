@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('driver_id')
         .unsigned()
         .references('drivers.id')
+      table.integer('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

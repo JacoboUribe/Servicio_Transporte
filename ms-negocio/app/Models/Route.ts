@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Lot from './Lot'
+import Address from './Address'
 
 export default class Route extends BaseModel {
   @column({ isPrimary: true })
@@ -21,6 +22,9 @@ export default class Route extends BaseModel {
   @column()
   public contract_id:number
 
+  @column()
+  public vehicle_id:number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -31,4 +35,11 @@ export default class Route extends BaseModel {
     foreignKey: 'route_id'
   })
   public lots: HasMany<typeof Lot>
+
+  @manyToMany(() => Address, {
+    pivotTable: 'order_routes',
+    pivotForeignKey: 'route_id',
+    pivotRelatedForeignKey: 'address_id',
+  })
+  public addresses: ManyToMany<typeof Address>
 }

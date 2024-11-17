@@ -15,7 +15,7 @@ export default class Turn extends BaseModel {
   public end_date : Date
 
   @belongsTo(() => Driver, {
-    foreignKey: 'driver_id'
+    foreignKey: 'driver_id' 
   })
   public drivers: BelongsTo<typeof Driver>
 
