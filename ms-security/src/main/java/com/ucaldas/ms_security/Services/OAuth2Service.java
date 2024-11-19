@@ -16,6 +16,7 @@
         @Autowired
         private RestTemplate restTemplate;
 
+        //GOOGLE
         @Value("${google.client.id}")
         private String client_id_google;
 
@@ -34,23 +35,26 @@
         @Value("${google.user.info.url}")
         private String google_info;
 
+        //GITHUB
+
         @Value("${github.client.id}")
         private String client_id_github;
 
-        @Value("${google.client.secret}")
+        @Value("${github.client.secret}")
         private String client_secret_github;
 
-        @Value("${google.redirect.url}")
+        @Value("${github.redirect.url}")
         private String github_redirect;
 
-        @Value("${google.auth.url}")
+        @Value("${github.auth.url}")
         private String github_auth;
 
-        @Value("${google.token.url}")
+        @Value("${github.token.url}")
         private String github_token;
 
         @Value("${google.user.info.url}")
         private String github_info;
+
         public String getGoogleAuthUrl(String state) {
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(google_auth)
                     .queryParam("client_id", client_id_google)
