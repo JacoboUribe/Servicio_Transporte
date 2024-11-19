@@ -1,2 +1,0 @@
-CONNECTION_STRING = "endpoint=https://notificaciones.unitedstates.communication.azure.com/;accesskey=fcac7IOQemogVpWImd2kdJiGjkhmty0Y6Wd7P/8ZbtUzfJpMhz7mXVrX5624sBI9FqjDeG4CGtiC76dX8h1rsg==";
-SENDER_ADDRESS =  "DoNotReply@<from_domain>" 

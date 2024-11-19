@@ -7,14 +7,31 @@ public class Session {
     @Id
     private String _id;
     private String token;
+    private String code2fa;
     private String expiration;
-    private int code2fa;
+    private Boolean active = false;
+
     @DBRef
     private User user;
 
     public Session(String token, String expiration) {
       this.token = token;
       this.expiration = expiration;
+  }
+
+  public Session(String code2fa, User user) {
+    this.code2fa = code2fa;
+    this.user = user;
+  }
+
+  public Session(String code2fa) {
+    this.code2fa = code2fa;
+  }
+
+  public Session(String code2fa, String token, Boolean active) {
+    this.code2fa = code2fa;
+    this.token = token;
+    this.active = active;
   }
 
   public String get_id() {
@@ -49,11 +66,19 @@ public class Session {
       this.user = user;
   }
 
-  public int getcode2fa() {
-      return code2fa;
+  public String getCode2fa() {
+    return this.code2fa;
   }
 
-  public void setcode2fa(int code2fa) {
-      this.code2fa = code2fa;
+  public void setCode2fa(String code2fa) {
+    this.code2fa = code2fa;
+  }
+
+  public Boolean isActive() {
+    return this.active;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
   }
 }

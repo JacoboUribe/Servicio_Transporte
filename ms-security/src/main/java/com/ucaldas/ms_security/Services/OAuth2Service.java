@@ -52,7 +52,7 @@
         @Value("${github.token.url}")
         private String github_token;
 
-        @Value("${google.user.info.url}")
+        @Value("${github.user.info.url}")
         private String github_info;
 
         public String getGoogleAuthUrl(String state) {
