@@ -76,6 +76,7 @@ public class SecurityController {
         }}, HttpStatus.UNAUTHORIZED);
     }
 
+    /*
     @PostMapping("/2fa")
     public ResponseEntity<HashMap<String, Object>> verifyTwoFactor(@RequestBody SecondFactor SecondFactor) {
         HashMap<String, Object> theResponse = new HashMap<>();
@@ -114,6 +115,48 @@ public class SecurityController {
         return new ResponseEntity<>("Email sent", HttpStatus.OK);
     }
 
+*/
+    @PostMapping("/2fa")
+    public ResponseEntity<Object> verifyTwoFactor(@RequestBody SecondFactor secondFactor) {
+        Optional<User> userOptional = theUserRepository.getUserByEmails(secondFactor.getEmail());
+
+        if (userOptional.isEmpty()) {
+            return createErrorResponse("Usuario no encontrado.", HttpStatus.UNAUTHORIZED);
+        }
+
+        User theActualUser = userOptional.get();
+        List<Session> sessions = theSessionRepository.getSessionsByUser(theActualUser.get_id());
+
+        if (sessions.isEmpty()) {
+            return createErrorResponse("Sesión no encontrada.", HttpStatus.UNAUTHORIZED);
+        }
+
+        // Verifica si existe un código de 2FA válido
+        for (Session session : sessions) {
+            if (session.getcode2fa() != null && session.getcode2fa().equals(secondFactor.getcode2fa())) {
+                theActualUser.setPassword(""); // Limpia la contraseña antes de enviar la respuesta
+                HashMap<String, Object> successResponse = new HashMap<>();
+                successResponse.put("token", session.getToken());
+                successResponse.put("user", theActualUser);
+
+                return new ResponseEntity<>(successResponse, HttpStatus.OK);
+            }
+        }
+
+        return createErrorResponse("Código de verificación incorrecto.", HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
+     * Método auxiliar para crear respuestas de error.
+     */
+    private ResponseEntity<Object> createErrorResponse(String message, HttpStatus status) {
+        return new ResponseEntity<>(new HashMap<>() {{
+            put("message", message);
+        }}, status);
+    }
+
+    
+    /*
     @PostMapping("/RestPassword/{userId}")
     public ResponseEntity<String> resetPassword(@PathVariable String userId) {
         Optional<User> optionalUser = this.theUserRepository.findById(userId);
@@ -145,3 +188,56 @@ public class SecurityController {
         return UUID.randomUUID().toString().substring(0, 8); 
     }
 }
+*/
+    @PostMapping("/RestPassword/{userId}")
+    public ResponseEntity<String> resetPassword(@PathVariable String userId) {
+        Optional<User> optionalUser = theUserRepository.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado.");
+        }
+
+        User theActualUser = optionalUser.get();
+
+        // Generar nueva contraseña segura
+        String newPassword = generateSecurePassword();
+        String encryptedPassword = theEncryptionService.convertSHA256(newPassword);
+
+        // Actualizar la contraseña del usuario
+        theActualUser.setPassword(encryptedPassword);
+
+        try {
+            theUserRepository.save(theActualUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar la contraseña.");
+        }
+
+        // Preparar el contenido del correo
+        EmailContent emailContent = new EmailContent();
+        emailContent.setRecipients(theActualUser.getEmail());
+        emailContent.setSubject("Nueva contraseña");
+        emailContent.setContent("Tu nueva contraseña es: " + newPassword + ". Por favor, cámbiala después de iniciar sesión.");
+
+        // Enviar correo
+        ResponseEntity<String> emailResponse = sendEmail(emailContent);
+        if (emailResponse.getStatusCode() != HttpStatus.OK) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar el correo.");
+        }
+
+        return ResponseEntity.ok("Contraseña restablecida y enviada al correo.");
+    }
+
+    private String generateSecurePassword() {
+        // Generar contraseña con caracteres alfanuméricos y especiales
+        int passwordLength = 12;
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(passwordLength);
+
+        for (int i = 0; i < passwordLength; i++) {
+            int index = random.nextInt(allowedChars.length());
+            password.append(allowedChars.charAt(index));
+        }
+
+        return password.toString();
+    }

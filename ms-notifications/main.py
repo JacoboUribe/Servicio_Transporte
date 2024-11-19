@@ -1,71 +1,35 @@
-import os
-import smtplib
-from contextlib import nullcontext
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from flask import Flask, request,jsonify
-from dotenv import load_dotenv
-
-load_dotenv()
+from flask import Flask, request, jsonify
+from send_email.send_email import Send_email
 
 app = Flask(__name__)
 
-#funciona para enviar correos
-def send_email(subject, recipient_email, body_html):
-    email_sender = os.getenv('GoogleMail_EmailSender')
-    email_password = os.getenv('GoogleMail_Apikey')
-    smtp_port = os.getenv('GoogleMail_Port')
-    smtp_server = os.getenv('GoogleMail_Host')
-
-    print(f'Email sender: {email_sender}')
-    print(f'Email password: {email_password}')
-    print(f'SMTP server: {smtp_server}')
-    print(f'SMTP port: {smtp_port}')
-
-    #crear mensaje
-    msg = MIMEMultipart()
-    msg['From'] = email_sender
-    msg['To'] = recipient_email
-    msg['Subject'] = subject
-
-    #agregar el cuerpo del mensaje en formato html
-    msg.attach(MIMEText(body_html, 'html'))
-
-    try:
-        #conectar al servidor SMTP y enviar correo
-        with smtplib.SMTP(smtp_server, int(smtp_port)) as server:
-            server.starttls()
-            server.login(email_sender, email_password)
-            server.sendmail(email_sender, recipient_email, msg.as_string())
-
-        return True
-    except Exception as e:
-        return False, str(e)
-
-@app.route('/send-email', methods=['POST'])
-def send_email_endpoint():
-    data = request.json
-    subject = data.get('subject')
-    recipient = data.get('recipient')
-    body_html = data.get('body_html')
-
-    success = send_email(subject, recipient, body_html)
-    print(f'success: {success}')
-    if success:
-        print('Email sent successfully')
-        return jsonify({'message': 'Email send successfully'})
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    info_request = request.get_json()
+    tt = Send_email(info_request['message'], info_request['recipient'])
+    if tt.send_the_email():
+        respuesta = {
+            "mensaje": "the message has been sent"
+        }
     else:
-        print(f'Failed to send email')
-        return jsonify({'error': f'failed to send email'})
+        respuesta = {
+            "mensaje": "the message could not be sent"
+        }
+    return jsonify(respuesta)
 
-@app.route('/get-users', methods=['GET'])
-def get_users():
-    print('Llegó la solicitud')
-
-    return jsonify([
-        {'name': 'Luis', 'email': 'name@example.com'},
-        {'name': 'John Doe', 'email': 'name@example.com'}
-    ])
+@app.route('/send_reset_link', methods=['POST'])
+def send_reset_link():
+    info_request = request.get_json()
+    tt = Send_email(info_request['message'], info_request['recipient'])
+    if tt.send_the_reset_link():
+        respuesta = {
+            "mensaje": "the message has been sent"
+        }
+    else:
+        respuesta = {
+            "mensaje": "the message could not be sent"
+        }
+    return jsonify(respuesta)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -27,7 +27,7 @@ public class AuthController {
     @Autowired
     private OAuth2Service theOAuth2Service;
 
-    /*@PostMapping("/send-email")
+    @PostMapping("/send-email")
     public ResponseEntity<String> sendEmail(@RequestBody EmailContent emailcontent) {
         for (Recipient recipient : emailcontent.getRecipients()) {
             System.out.println("Recipient name: " + recipient.getName());
@@ -35,7 +35,7 @@ public class AuthController {
         }
         theRequestService.sendEmail(emailcontent);
         return new ResponseEntity<>("Email sent", HttpStatus.OK);
-    }*/
+    }
     @PostMapping("/login")
     public ResponseEntity<String> sendEmail(@RequestBody EmailContent emailContent) {
         theRequestService.sendEmail(emailContent);
