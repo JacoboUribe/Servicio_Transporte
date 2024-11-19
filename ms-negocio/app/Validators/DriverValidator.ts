@@ -9,7 +9,7 @@ export default class DriverValidator {
     license_expiration_date: schema.date({format:"yyyy-MM-dd"},[rules.afterOrEqual('today')]),
     license_number: schema.string({ trim: true }),
     contact_phone: schema.string({ trim: true }),
-    user_id: schema.number([rules.exists({table: 'users', column: 'id'})])
+    user_id: schema.string()
   })
 
   public messages: CustomMessages = {}

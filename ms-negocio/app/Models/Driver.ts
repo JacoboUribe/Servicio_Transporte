@@ -19,7 +19,7 @@ export default class Driver extends BaseModel {
   public contact_phone: string
 
   @column()
-  public user_id:number
+  public user_id:string
 
   @hasMany(() => Turn, {
     foreignKey: 'driver_id'

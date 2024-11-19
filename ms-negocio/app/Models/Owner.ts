@@ -18,7 +18,7 @@ export default class Owner extends BaseModel {
   public driver_id: number
 
   @column()
-  public user_id:number
+  public user_id:string
 
   @belongsTo(() => Driver, {
     foreignKey: 'driver_id'
