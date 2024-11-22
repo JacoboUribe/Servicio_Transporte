@@ -21,8 +21,9 @@ export default class LotsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(LotValidator)
-        const theLot = await Lot.create(body)
+        await request.validate(LotValidator)
+        const body = request.body();
+        const theLot: Lot = await Lot.create(body);
         return theLot
     }
 

@@ -21,8 +21,9 @@ export default class OrderRoutesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(OrderRouteValidator)
-        const theOrderRoute = await OrderRoute.create(body)
+        await request.validate(OrderRouteValidator)
+        const body = request.body();
+        const theOrderRoute: OrderRoute = await OrderRoute.create(body);
         return theOrderRoute
     }
 }

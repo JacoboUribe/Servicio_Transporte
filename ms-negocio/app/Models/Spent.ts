@@ -17,6 +17,9 @@ export default class Spent extends BaseModel {
   public driver_id:number
 
   @column()
+  public owner_id:number
+
+  @column()
   public details:string
 
   @hasOne(() => Bill, {

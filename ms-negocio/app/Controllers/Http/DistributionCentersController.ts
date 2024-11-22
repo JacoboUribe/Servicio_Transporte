@@ -21,8 +21,9 @@ export default class DistributionCentersController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(DistributionCenterValidator)
-        const theDistributionCenter = await DistributionCenter.create(body)
+        await request.validate(DistributionCenterValidator)
+        const body = request.body();
+        const theDistributionCenter: DistributionCenter = await DistributionCenter.create(body);
         return theDistributionCenter
     }
 

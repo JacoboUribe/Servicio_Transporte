@@ -20,8 +20,9 @@ export default class OperationsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(OperationValidator)
-        const theOperation = await Operation.create(body)
+        await request.validate(OperationValidator)
+        const body = request.body();
+        const theOperation: Operation = await Operation.create(body);
         return theOperation
     }
 

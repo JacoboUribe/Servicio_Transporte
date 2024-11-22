@@ -6,9 +6,9 @@ export default class CitiesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCity: City = await City.findOrFail(params.id);
-            theCity.load("addresses");
-            theCity.load("distribution_centers");
-            theCity.load("operations");
+            await theCity.load("addresses");
+            await theCity.load("distribution_centers");
+            await theCity.load("operations");
             return theCity;
         } else {
             const data = request.all()
@@ -23,8 +23,9 @@ export default class CitiesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(CityValidator)
-        const theCity = await City.create(body)
+        await request.validate(CityValidator)
+        const body = request.body();
+        const theCity: City = await City.create(body);
         return theCity
     }
 

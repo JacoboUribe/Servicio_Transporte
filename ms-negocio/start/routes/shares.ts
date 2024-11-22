@@ -3,7 +3,7 @@ Route.group(() => {
 
     Route.get("/shares", "SharesController.index");
     Route.get("/shares:id", "SharesController.show");
-    Route.post("/shares", "SharesController.store");
+    Route.post("/shares", "SharesController.create");
     Route.put("/shares:id", "SharesController.update");
     Route.delete("/shares/:id", "SharesController.delete");
 })

@@ -25,8 +25,9 @@ export default class VehiclesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(VehicleValidator)
-        const theVehicle = await Vehicle.create(body)
+        await request.validate(VehicleValidator)
+        const body = request.body();
+        const theVehicle: Vehicle = await Vehicle.create(body);
         return theVehicle
     }
 

@@ -25,8 +25,9 @@ export default class CustomersController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(CustomerValidator)
-        const theCustomer = await Customer.create(body)
+        await request.validate(CustomerValidator)
+        const body = request.body();
+        const theCustomer: Customer = await Customer.create(body);
         return theCustomer
     }
 

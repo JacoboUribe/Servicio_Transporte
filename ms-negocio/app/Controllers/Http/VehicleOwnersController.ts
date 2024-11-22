@@ -1,27 +1,29 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import VehicleOwner from 'App/Models/VehicleOwner';
+import VehicleOwnerOwner from 'App/Models/VehicleOwner';
 import VehicleOwnerValidator from 'App/Validators/VehicleOwnerValidator';
 
-export default class VehicleOwnersController {
+export default class VehicleOwnerOwnersController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            let theVehicleOwner: VehicleOwner = await VehicleOwner.findOrFail(params.id)
-            return theVehicleOwner;
+            let theVehicleOwnerOwner: VehicleOwnerOwner = await VehicleOwnerOwner.findOrFail(params.id)
+            return theVehicleOwnerOwner;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await VehicleOwner.query().paginate(page, perPage)
+                return await VehicleOwnerOwner.query().paginate(page, perPage)
             } else {
-                return await VehicleOwner.query()
+                return await VehicleOwnerOwner.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(VehicleOwnerValidator)
-        const theVehicleOwner = await VehicleOwner.create(body)
+        await request.validate(VehicleOwnerValidator)
+        const body = request.body();
+        const theVehicleOwner: VehicleOwner = await VehicleOwner.create(body);
         return theVehicleOwner
     }
 }

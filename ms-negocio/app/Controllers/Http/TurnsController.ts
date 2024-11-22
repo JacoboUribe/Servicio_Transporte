@@ -20,8 +20,9 @@ export default class TurnsController {
     }
     
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(TurnValidator)
-        const theTurn = await Turn.create(body)
+        await request.validate(TurnValidator)
+        const body = request.body();
+        const theTurn: Turn = await Turn.create(body);
         return theTurn
     }
 

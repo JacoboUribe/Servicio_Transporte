@@ -24,11 +24,12 @@ export default class ServicesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(ServiceValidator)
-        const theService = await Service.create(body)
+        await request.validate(ServiceValidator)
+        const body = request.body();
+        const theService: Service = await Service.create(body);
         return theService
     }
-
+    
     public async update({ params, request }: HttpContextContract) {
         const theService: Service = await Service.findOrFail(params.id);
         const body = await request.validate(ServiceValidator);

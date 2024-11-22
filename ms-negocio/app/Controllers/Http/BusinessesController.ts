@@ -20,8 +20,9 @@ export default class BusinessesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(BusinessValidator)
-        const theBusiness = await Business.create(body)
+        await request.validate(BusinessValidator)
+        const body = request.body();
+        const theBusiness: Business = await Business.create(body);
         return theBusiness
     }
 

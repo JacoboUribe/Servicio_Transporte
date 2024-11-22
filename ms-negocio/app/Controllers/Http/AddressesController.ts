@@ -21,8 +21,9 @@ export default class AddressesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(AddressValidator)
-        const theAddress = await Address.create(body)
+        await request.validate(AddressValidator)
+        const body = request.body();
+        const theAddress: Address = await Address.create(body);
         return theAddress
     }
 

@@ -14,7 +14,7 @@ export default class Category extends BaseModel {
   public description: string
 
   @column()
-  public category_id: number
+  public category_padre: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -23,14 +23,14 @@ export default class Category extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Category, {
-    foreignKey: 'category_id'
+    foreignKey: 'category_padre'
   })
-  public categories: HasMany<typeof Category>
+  public categoryHija: HasMany<typeof Category>
 
   @belongsTo(() => Category, {
-    foreignKey: 'category_id'
+    foreignKey: 'category_padre'
   })
-  public categoriesPadre: BelongsTo<typeof Category>
+  public categoryPadre: BelongsTo<typeof Category>
 
   @hasMany(() => ProductCategory, {
     foreignKey: 'category_id'

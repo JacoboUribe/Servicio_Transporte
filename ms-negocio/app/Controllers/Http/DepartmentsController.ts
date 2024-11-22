@@ -6,7 +6,7 @@ export default class DepartmentsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theDepartment: Department = await Department.findOrFail(params.id)
-            theDepartment.load("cities")
+            await theDepartment.load("cities")
             return theDepartment;
         } else {
             const data = request.all()
@@ -21,8 +21,9 @@ export default class DepartmentsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(DepartmentValidator)
-        const theDepartment = await Department.create(body)
+        await request.validate(DepartmentValidator)
+        const body = request.body();
+        const theDepartment: Department = await Department.create(body);
         return theDepartment
     }
 

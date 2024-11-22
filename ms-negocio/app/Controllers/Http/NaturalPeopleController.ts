@@ -4,66 +4,91 @@ import NaturalPeopleValidator from 'App/Validators/NaturalPeopleValidator';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env';
 
-export default class NaturalPeopleController {
-    public async find({ request, params }: HttpContextContract) {
-        if (params.id) {
-            let theNaturalPerson: NaturalPeople = await NaturalPeople.findOrFail(params.id)
-            const userData = await this.getUserData(theNaturalPerson.user_id, request.headers().authorization || "");
-            return { naturalPerson: theNaturalPerson, usuario: userData };
-        } else {
-            const data = request.all()
-            if ("page" in data && "per_page" in data) {
-                const page = request.input('page', 1);
-                const perPage = request.input("per_page", 20);
-                return await NaturalPeople.query().paginate(page, perPage)
-            } else {
-                return await NaturalPeople.query()
-            }
-        }
+export default class NaturalPeoplesController {
+  public async find({ request, params }: HttpContextContract) {
+    const authHeader = request.headers().authorization || '';
+
+    if (params.id) {
+      const theNaturalPeople = await NaturalPeople.findOrFail(params.id);
+      const userInfo = await this.getUserInfo(theNaturalPeople.user_id, authHeader);
+      return { ...theNaturalPeople.toJSON(), user: userInfo };
     }
 
-    public async create({ request }: HttpContextContract) {
-        const body = await request.validate(NaturalPeopleValidator)
-        const userResponse = await axios.get(
-            `${Env.get("MS_SECURITY")}/api/users/${body.user_id}`,
-            {
-                headers: { Authorization: request.headers().authorization || "" },
-            }
-        );
-        if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
-            return { error: "No se encontró información de usuario, verifique que el código sea correcto" };
-        }
-        const theNaturalPeople = await NaturalPeople.create(body)
-        return theNaturalPeople
+    const data = request.all();
+    let results;
+
+    if ('page' in data && 'per_page' in data) {
+      const page = request.input('page', 1);
+      const perPage = request.input('per_page', 20);
+      results = await NaturalPeople.query().paginate(page, perPage);
+    } else {
+      results = await NaturalPeople.all();
     }
 
-    public async update({ params, request }: HttpContextContract) {
-        const theNaturalPerson: NaturalPeople = await NaturalPeople.findOrFail(params.id);
-        const body = await request.validate(NaturalPeopleValidator);
-        theNaturalPerson.type_document = body.type_document;
-        theNaturalPerson.birthdate = body.birthdate;
-        theNaturalPerson.customer_id = body.customer_id;
-        theNaturalPerson.business_id = body.business_id;
-        theNaturalPerson.user_id = body.user_id;
-        return await theNaturalPerson.save();
-    }
+    const enrichedResults = await Promise.all(
+      results.map(async (person) => {
+        const userInfo = await this.getUserInfo(person.user_id, authHeader);
+        return { ...person.toJSON(), user: userInfo };
+      })
+    );
 
-    public async delete({ params, response }: HttpContextContract) {
-        const theNaturalPerson: NaturalPeople = await NaturalPeople.findOrFail(params.id);
-        response.status(204);
-        return await theNaturalPerson.delete();
-    }
+    return enrichedResults;
+  }
 
-    private async getUserData(userId: string, authorization: string) {
-        const userResponse = await axios.get(
-            `${Env.get("MS_SECURITY")}/api/users/${userId}`,
-            {
-                headers: { Authorization: authorization || "" },
-            }
-        );
-        if (!userResponse.data || Object.keys(userResponse.data).length === 0) {
-            return { error: "No se encontró información de usuario" };
-        }
-        return userResponse.data;
+  public async create({ request }: HttpContextContract) {
+    const body = request.body();
+    const authHeader = request.headers().authorization || '';
+    await this.validateUserExists(body.user_id, authHeader);
+    await request.validate(NaturalPeopleValidator);
+
+    const theNaturalPeople = await NaturalPeople.create({
+      user_id: body.user_id,
+      type_document: body.type_document,
+      business_id: body.business_id,
+      customer_id: body.customer_id,
+      birthdate: body.birthdate,
+    });
+
+    return theNaturalPeople;
+  }
+
+  public async update({ params, request }: HttpContextContract) {
+    const theNaturalPeople = await NaturalPeople.findOrFail(params.id);
+    const body = request.body();
+    const authHeader = request.headers().authorization || '';
+    await this.validateUserExists(body.user_id, authHeader);
+
+    theNaturalPeople.merge({
+      user_id: body.user_id,
+      type_document: body.type_document,
+      business_id: body.business_id,
+      customer_id: body.customer_id,
+      birthdate: body.birthdate,
+    });
+
+    return await theNaturalPeople.save();
+  }
+
+  public async delete({ params }: HttpContextContract) {
+    const theNaturalPeople = await NaturalPeople.findOrFail(params.id);
+    await theNaturalPeople.delete();
+    return { message: 'Persona natural eliminada con éxito' };
+  }
+
+  private async getUserInfo(userId: string, authHeader: string) {
+    const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users/${userId}`, {
+      headers: { Authorization: authHeader },
+    });
+    return response.data || null;
+  }
+
+  private async validateUserExists(userId: string, authHeader: string) {
+    const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users/${userId}`, {
+      headers: { Authorization: authHeader },
+    });
+
+    if (!response.data || Object.keys(response.data).length === 0) {
+      throw new Error('No se encontró información del usuario');
     }
+  }
 }

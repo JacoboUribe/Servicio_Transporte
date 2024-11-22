@@ -6,7 +6,7 @@ export default class CategoriesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCategory: Category = await Category.findOrFail(params.id)
-            theCategory.load("categoriesPadre")
+            theCategory.load("categoryPadre")
             theCategory.load("product_categories")
             return theCategory;
         } else {
@@ -14,16 +14,19 @@ export default class CategoriesController {
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Category.query().preload("categoriesPadre").preload("product_categories").paginate(page, perPage)
+                return await Category.query().preload("categoryPadre").preload("product_categories").paginate(page, perPage)
             } else {
-                return await Category.query().preload("categoriesPadre").preload("product_categories")
+                return await Category.query().preload("categoryPadre").preload("product_categories")
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(CategoryValidator)
-        const theCategory = await Category.create(body)
+        await request.validate(CategoryValidator)
+        const body = request.body();
+        const theCategory: Category = await Category.create(body);
+        await theCategory.load("categoryPadre")
+        await theCategory.load("categoryHija")
         return theCategory
     }
 
@@ -32,7 +35,9 @@ export default class CategoriesController {
         const body = await request.validate(CategoryValidator);
         theCategory.category_name = body.category_name;
         theCategory.description = body.description;
-        theCategory.category_id = body.category_id;
+        theCategory.category_padre = body.categoryPadre;
+        await theCategory.load("categoryPadre")
+        await theCategory.load("categoryHija")
         return await theCategory.save();
     }
 

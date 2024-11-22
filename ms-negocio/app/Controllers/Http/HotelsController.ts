@@ -21,8 +21,9 @@ export default class HotelsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(HotelValidator)
-        const theHotel = await Hotel.create(body)
+        await request.validate(HotelValidator)
+        const body = request.body();
+        const theHotel: Hotel = await Hotel.create(body);
         return theHotel
     }
 

@@ -19,8 +19,9 @@ export default class ProductCategoriesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(ProductCategoryValidator)
-        const theProductCategory = await ProductCategory.create(body)
+        await request.validate(ProductCategoryValidator)
+        const body = request.body();
+        const theProductCategory: ProductCategory = await ProductCategory.create(body);
         return theProductCategory
     }
 }

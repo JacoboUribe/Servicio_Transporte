@@ -20,8 +20,9 @@ export default class InsurancesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(InsuranceValidator)
-        const theInsurance = await Insurance.create(body)
+        await request.validate(InsuranceValidator)
+        const body = request.body();
+        const theInsurance: Insurance = await Insurance.create(body);
         return theInsurance
     }
 

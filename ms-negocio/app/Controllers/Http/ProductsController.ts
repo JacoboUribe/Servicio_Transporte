@@ -21,8 +21,9 @@ export default class ProductsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(ProductValidator)
-        const theProduct = await Product.create(body)
+        await request.validate(ProductValidator)
+        const body = request.body();
+        const theProduct: Product = await Product.create(body);
         return theProduct
     }
 

@@ -9,7 +9,7 @@ export default class RouteValidator {
     starting_point: schema.string({ trim: true }),
     destination_point: schema.string({ trim: true }),
     distance: schema.number([ rules.unsigned(),]),
-    delivery_date: schema.date(),
+    delivery_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today')]),
     vehicle_id : schema.number([rules.exists({ table: 'vehicles', column: 'id' })]),
     contract_id : schema.number([rules.exists({ table: 'contracts', column: 'id' })])
 

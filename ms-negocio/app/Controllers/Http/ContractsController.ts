@@ -23,8 +23,9 @@ export default class ContractsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(ContractValidator)
-        const theContract = await Contract.create(body)
+        await request.validate(ContractValidator)
+        const body = request.body();
+        const theContract: Contract = await Contract.create(body);
         return theContract
     }
 

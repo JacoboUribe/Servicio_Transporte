@@ -21,8 +21,9 @@ export default class SharesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(ShareValidator)
-        const theShare = await Share.create(body)
+        await request.validate(ShareValidator)
+        const body = request.body();
+        const theShare: Share = await Share.create(body);
         return theShare
     }
 

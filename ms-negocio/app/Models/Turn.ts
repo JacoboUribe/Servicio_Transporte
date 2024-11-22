@@ -20,7 +20,7 @@ export default class Turn extends BaseModel {
   public drivers: BelongsTo<typeof Driver>
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime  
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime

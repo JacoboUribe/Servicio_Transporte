@@ -10,7 +10,7 @@ export default class ProductValidator {
     lot_id: schema.number([rules.exists({ table: 'lots', column: 'id' }),]),
     product_name: schema.string({ trim: true }),
     description: schema.string({ trim: true }),
-    expiration_date: schema.date()
+    expiration_date: schema.date({ format: 'yyyy-MM-dd' }, [rules.afterOrEqual('today')])
   })
 
   public messages: CustomMessages = {}

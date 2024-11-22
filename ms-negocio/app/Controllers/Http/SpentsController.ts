@@ -21,8 +21,9 @@ export default class SpentsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(SpentValidator)
-        const theSpent = await Spent.create(body)
+        await request.validate(SpentValidator)
+        const body = request.body();
+        const theSpent: Spent = await Spent.create(body);
         return theSpent
     }
 
@@ -32,6 +33,7 @@ export default class SpentsController {
         theSpent.details = body.details;
         theSpent.driver_id = body.driver_id;
         theSpent.service_id = body.service_id;
+        theSpent.owner_id = body.owner_id;
         return theSpent.save();
     }
 

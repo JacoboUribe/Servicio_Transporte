@@ -20,8 +20,9 @@ export default class RestaurantsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(RestaurantValidator)
-        const theRestaurant = await Restaurant.create(body)
+        await request.validate(RestaurantValidator)
+        const body = request.body();
+        const theRestaurant: Restaurant = await Restaurant.create(body);
         return theRestaurant
     }
 

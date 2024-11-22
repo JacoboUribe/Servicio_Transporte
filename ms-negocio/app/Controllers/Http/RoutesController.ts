@@ -20,8 +20,9 @@ export default class RoutesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = await request.validate(RouteValidator)
-        const theRoute = await Route.create(body)
+        await request.validate(RouteValidator)
+        const body = request.body();
+        const theRoute: Route = await Route.create(body);
         return theRoute
     }
 
@@ -42,4 +43,6 @@ export default class RoutesController {
             response.status(204);
             return await theRoute.delete();
     }
+
+    
 }
