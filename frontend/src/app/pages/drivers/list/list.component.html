@@ -1,0 +1,43 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Conductores</h3>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success" (click)="create()">Crear</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Licencia</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let driver of drivers">
+                                <td>{{ driver.id }}</td>
+                                <td>{{ driver.name }}</td>
+                                <td>{{ driver.license }}</td>
+                                <td>{{ driver.phone }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="view(driver.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="update(driver.id)">Editar</button>
+                                    <button type="button" class="btn btn-dark"
+                                        (click)="delete(driver.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

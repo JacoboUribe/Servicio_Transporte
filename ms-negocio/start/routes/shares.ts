@@ -6,4 +6,4 @@ Route.group(() => {
     Route.post("/shares", "SharesController.create");
     Route.put("/shares:id", "SharesController.update");
     Route.delete("/shares/:id", "SharesController.delete");
-})
+})//.middleware

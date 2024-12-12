@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.integer('category_padre')
         .unsigned()
         .references('categories.id')
-        .nullable
+        .nullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

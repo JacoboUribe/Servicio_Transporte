@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Listado de Rutas</h2>
+    <button class="btn btn-primary" (click)="createRoute()">Crear Ruta</button>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let route of routes">
+                <td>{{ route.id }}</td>
+                <td>{{ route.name }}</td>
+                <td>{{ route.description }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="viewRoute(route.id)">Ver</button>
+                    <button class="btn btn-warning" (click)="updateRoute(route.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteRoute(route.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

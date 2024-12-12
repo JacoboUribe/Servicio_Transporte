@@ -1,0 +1,42 @@
+<div class="container">
+    <h2 *ngIf="mode === 2">Crear Gasto</h2>
+    <h2 *ngIf="mode === 3">Actualizar Gasto</h2>
+    <h2 *ngIf="mode === 1">Ver Gasto</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="mode === 2 ? create() : update()">
+        <div class="form-group">
+            <label for="details">Detalles</label>
+            <input type="text" class="form-control" id="details" formControlName="details" [readonly]="mode === 1"
+                placeholder="Ingrese los detalles del gasto" />
+            <div *ngIf="trySend && formGroup.get('details')?.invalid" class="text-danger">
+                Los detalles son obligatorios y deben tener al menos 1 carácter.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="driver_id">ID del Conductor</label>
+            <input type="number" class="form-control" id="driver_id" formControlName="driver_id" [readonly]="mode === 1"
+                placeholder="Ingrese el ID del conductor" />
+            <div *ngIf="trySend && formGroup.get('driver_id')?.invalid" class="text-danger">
+                El ID del conductor es obligatorio y debe ser mayor a 0.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="owner_id">ID del Propietario</label>
+            <input type="number" class="form-control" id="owner_id" formControlName="owner_id" [readonly]="mode === 1"
+                placeholder="Ingrese el ID del propietario" />
+            <div *ngIf="trySend && formGroup.get('owner_id')?.invalid" class="text-danger">
+                El ID del propietario es obligatorio y debe ser mayor a 0.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="service_id">ID del Servicio</label>
+            <input type="number" class="form-control" id="service_id" formControlName="service_id"
+                [readonly]="mode === 1" placeholder="Ingrese el ID del servicio" />
+            <div *ngIf="trySend && formGroup.get('service_id')?.invalid" class="text-danger">
+                El ID del servicio es obligatorio y debe ser mayor a 0.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">
+            {{ mode === 2 ? 'Crear' : 'Actualizar' }}
+        </button>
+    </form>
+</div>

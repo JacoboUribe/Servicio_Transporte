@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Lista de Gastos</h2>
+
+    <!-- Botón para crear nuevo gasto -->
+    <button (click)="create()" class="btn btn-primary mb-3">Crear Nuevo Gasto</button>
+
+    <!-- Tabla de gastos -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Detalles</th>
+                <th>Driver ID</th>
+                <th>Owner ID</th>
+                <th>Service ID</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iteración sobre los gastos -->
+            <tr *ngFor="let spent of spents">
+                <td>{{ spent.id }}</td>
+                <td>{{ spent.details }}</td>
+                <td>{{ spent.driver_id }}</td>
+                <td>{{ spent.owner_id }}</td>
+                <td>{{ spent.service_id }}</td>
+                <td>
+                    <!-- Botones de acción -->
+                    <button (click)="view(spent.id)" class="btn btn-info btn-sm">Ver</button>
+                    <button (click)="update(spent.id)" class="btn btn-warning btn-sm">Editar</button>
+                    <button (click)="delete(spent.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

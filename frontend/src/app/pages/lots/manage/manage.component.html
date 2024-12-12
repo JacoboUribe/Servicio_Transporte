@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="mode === 1">
+                <h2>Ver Lote</h2>
+            </div>
+            <div *ngIf="mode === 2">
+                <h2>Crear Lote</h2>
+            </div>
+            <div *ngIf="mode === 3">
+                <h2>Actualizar Lote</h2>
+            </div>
+            <form [formGroup]="theFormGroup">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="weigth">Peso</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" formControlName="weigth" [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('weigth').errors && (theFormGroup.get('weigth').dirty || theFormGroup.get('weigth').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('weigth').errors.required"
+                                class="msnError">Requerido</strong>
+                            <strong *ngIf="theFormGroup.get('weigth').errors.min" class="msnError">Valor mínimo debe ser
+                                1</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="route_id">ID de Ruta</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" formControlName="route_id" [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('route_id').errors && (theFormGroup.get('route_id').dirty || theFormGroup.get('route_id').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('route_id').errors.required"
+                                class="msnError">Requerido</strong>
+                            <strong *ngIf="theFormGroup.get('route_id').errors.min" class="msnError">Valor mínimo debe
+                                ser 1</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="order_route_id">ID de Orden de Ruta</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" formControlName="order_route_id"
+                            [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('order_route_id').errors && (theFormGroup.get('order_route_id').dirty || theFormGroup.get('order_route_id').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('order_route_id').errors.required"
+                                class="msnError">Requerido</strong>
+                            <strong *ngIf="theFormGroup.get('order_route_id').errors.min" class="msnError">Valor mínimo
+                                debe ser 1</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <button *ngIf="mode === 2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                        <button *ngIf="mode === 3" class="btn btn-success btn-block"
+                            (click)="update()">Actualizar</button>
+                        <button *ngIf="mode === 1" class="btn btn-primary btn-block"
+                            (click)="router.navigate(['/lots/list'])">Volver</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

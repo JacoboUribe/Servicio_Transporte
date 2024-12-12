@@ -5,5 +5,5 @@ Route.group(() => {
     Route.post("/natural_peoples", "NaturalPeopleController.create");
     Route.put("/natural_peoples/:id", "NaturalPeopleController.update");
     Route.delete("/natural_peoples/:id", "NaturalPeopleController.delete");
-  })
+  })//.middleware
   

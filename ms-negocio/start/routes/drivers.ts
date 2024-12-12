@@ -5,4 +5,4 @@ Route.group(() => {
     Route.post("/drivers", "DriversController.create");
     Route.put("/drivers/:id", "DriversController.update");
     Route.delete("/drivers/:id", "DriversController.delete");
-})
+})//.middleware

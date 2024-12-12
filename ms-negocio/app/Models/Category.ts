@@ -14,7 +14,7 @@ export default class Category extends BaseModel {
   public description: string
 
   @column()
-  public category_padre: number
+  public category_padre: number | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

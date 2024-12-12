@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Lista de Conductores de Vehículos</h2>
+    <button (click)="create()" class="btn btn-primary">Crear Conductor</button>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Detalles</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehicleDriver of vehicleDrivers">
+                <td>{{ vehicleDriver.id }}</td>
+                <td>{{ vehicleDriver.details }}</td>
+                <td>
+                    <button (click)="view(vehicleDriver.id)" class="btn btn-info">Ver</button>
+                    <button (click)="update(vehicleDriver.id)" class="btn btn-warning">Actualizar</button>
+                    <button (click)="delete(vehicleDriver.id)" class="btn btn-danger">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

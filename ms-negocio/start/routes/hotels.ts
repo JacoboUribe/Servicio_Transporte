@@ -5,4 +5,4 @@ Route.group(() => {
     Route.post("/hotels", "HotelsController.create");
     Route.put("/hotels/:id", "HotelsController.update");
     Route.delete("/hotels/:id", "HotelsController.delete");
-})
+})//.middleware

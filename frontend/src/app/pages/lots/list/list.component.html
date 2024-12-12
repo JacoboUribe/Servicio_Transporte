@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Listado de Lotes</h2>
+    <button class="btn btn-primary" (click)="createLot()">Crear Lote</button>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lot of lots">
+                <td>{{ lot.id }}</td>
+                <td>{{ lot.name }}</td>
+                <td>{{ lot.description }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="viewLot(lot.id)">Ver</button>
+                    <button class="btn btn-warning" (click)="updateLot(lot.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteLot(lot.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

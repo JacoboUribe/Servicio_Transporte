@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Listado de Rutas de Pedido</h2>
+    <button class="btn btn-primary" (click)="createOrderRoute()">Crear Ruta de Pedido</button>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ruta</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let orderRoute of orderRoutes">
+                <td>{{ orderRoute.id }}</td>
+                <td>{{ orderRoute.route }}</td>
+                <td>{{ orderRoute.description }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="viewOrderRoute(orderRoute.id)">Ver</button>
+                    <button class="btn btn-warning" (click)="updateOrderRoute(orderRoute.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteOrderRoute(orderRoute.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

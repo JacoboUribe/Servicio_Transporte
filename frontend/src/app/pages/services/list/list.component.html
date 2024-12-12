@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Listado de Servicios</h2>
+    <button class="btn btn-primary" (click)="create()">Crear Servicio</button>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let service of services">
+                <td>{{ service.id }}</td>
+                <td>{{ service.name }}</td>
+                <td>{{ service.description }}</td>
+                <td>{{ service.price | currency }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="view(service.id)">Ver</button>
+                    <button class="btn btn-warning" (click)="update(service.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="delete(service.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

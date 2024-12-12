@@ -5,4 +5,4 @@ Route.group(() => {
     Route.post("/cities", "CitiesController.create");
     Route.put("/cities/:id", "CitiesController.update");
     Route.delete("/cities/:id", "CitiesController.delete");
-})
+})//.middleware

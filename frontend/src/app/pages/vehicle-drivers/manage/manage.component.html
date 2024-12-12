@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>{{ mode === 1 ? 'Ver' : mode === 2 ? 'Crear' : 'Actualizar' }} Relación Vehículo-Chofer</h2>
+
+    <form [formGroup]="formGroup" (ngSubmit)="mode === 2 ? create() : update()">
+        <div class="form-group">
+            <label for="vehicle_id">ID Vehículo</label>
+            <input type="number" class="form-control" id="vehicle_id" formControlName="vehicle_id"
+                [ngClass]="{ 'is-invalid': formGroup.get('vehicle_id')?.invalid && trySend }" />
+            <div *ngIf="formGroup.get('vehicle_id')?.invalid && trySend" class="invalid-feedback">
+                <small *ngIf="formGroup.get('vehicle_id')?.hasError('required')">Este campo es obligatorio.</small>
+                <small *ngIf="formGroup.get('vehicle_id')?.hasError('min')">Debe ser mayor que 0.</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="driver_id">ID Conductor</label>
+            <input type="number" class="form-control" id="driver_id" formControlName="driver_id"
+                [ngClass]="{ 'is-invalid': formGroup.get('driver_id')?.invalid && trySend }" />
+            <div *ngIf="formGroup.get('driver_id')?.invalid && trySend" class="invalid-feedback">
+                <small *ngIf="formGroup.get('driver_id')?.hasError('required')">Este campo es obligatorio.</small>
+                <small *ngIf="formGroup.get('driver_id')?.hasError('min')">Debe ser mayor que 0.</small>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">
+            {{ mode === 2 ? 'Crear' : 'Actualizar' }}
+        </button>
+    </form>
+</div>

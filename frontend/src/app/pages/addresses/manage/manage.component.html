@@ -1,0 +1,104 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar Dirección</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear Dirección</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar Dirección</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Id:</label>
+                            </div>
+                            <div class="col-8">
+                                <p>{{address.id}}</p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Nombre de Dirección:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="address.address_name"
+                                    formControlName="address_name" />
+                                <div
+                                    *ngIf="getTheFormGroup.address_name.errors && (getTheFormGroup.address_name.dirty || getTheFormGroup.address_name.touched || trySend)">
+                                    <strong *ngIf="getTheFormGroup.address_name.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.address_name.errors.minlength"
+                                        class="msnError">Mínimo 2 caracteres</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Dirección:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="address.address"
+                                    formControlName="address" />
+                                <div
+                                    *ngIf="getTheFormGroup.address.errors && (getTheFormGroup.address.dirty || getTheFormGroup.address.touched || trySend)">
+                                    <strong *ngIf="getTheFormGroup.address.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.address.errors.minlength" class="msnError">Mínimo 5
+                                        caracteres</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Referencias:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="address.references"
+                                    formControlName="references" />
+                                <div
+                                    *ngIf="getTheFormGroup.references.errors && (getTheFormGroup.references.dirty || getTheFormGroup.references.touched || trySend)">
+                                    <strong *ngIf="getTheFormGroup.references.errors.maxlength" class="msnError">Máximo
+                                        255 caracteres</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Barrio:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="address.neighborhood"
+                                    formControlName="neighborhood" />
+                                <div
+                                    *ngIf="getTheFormGroup.neighborhood.errors && (getTheFormGroup.neighborhood.dirty || getTheFormGroup.neighborhood.touched || trySend)">
+                                    <strong *ngIf="getTheFormGroup.neighborhood.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.neighborhood.errors.minlength"
+                                        class="msnError">Mínimo 2 caracteres</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                                <button *ngIf="mode == 2" class="btn btn-success btn-block" (click)="create()"> Crear
+                                </button>
+                                <button *ngIf="mode == 3" class="btn btn-success btn-block" (click)="update()">
+                                    Actualizar </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

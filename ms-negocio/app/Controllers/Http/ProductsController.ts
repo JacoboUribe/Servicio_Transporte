@@ -34,7 +34,7 @@ export default class ProductsController {
         theProduct.description = body.description;
         theProduct.expiration_date = body.expiration_date;
         theProduct.lot_id = body.lot_id;
-        theProduct.customer_id = body.customer_id;
+        // theProduct.customer_id = body.customer_id;
         return await theProduct.save();
     }
 

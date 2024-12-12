@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="mode === 1">
+                <h2>Ver Operación</h2>
+            </div>
+            <div *ngIf="mode === 2">
+                <h2>Crear Operación</h2>
+            </div>
+            <div *ngIf="mode === 3">
+                <h2>Actualizar Operación</h2>
+            </div>
+            <form [formGroup]="theFormGroup">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="start_date">Fecha de Inicio</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="date" class="form-control" formControlName="start_date" [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('start_date').errors && (theFormGroup.get('start_date').dirty || theFormGroup.get('start_date').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('start_date').errors.required"
+                                class="msnError">Requerido</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="end_date">Fecha de Fin</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="date" class="form-control" formControlName="end_date" [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('end_date').errors && (theFormGroup.get('end_date').dirty || theFormGroup.get('end_date').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('end_date').errors.required"
+                                class="msnError">Requerido</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="vehicle_id">ID de Vehículo</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" formControlName="vehicle_id"
+                            [readonly]="mode === 1" />
+                        <div
+                            *ngIf="theFormGroup.get('vehicle_id').errors && (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)">
+                            <strong *ngIf="theFormGroup.get('vehicle_id').errors.required"
+                                class="msnError">Requerido</strong>
+                            <strong *ngIf="theFormGroup.get('vehicle_id').errors.min" class="msnError">Valor mínimo debe
+                                ser 1</strong>
+                        </div>

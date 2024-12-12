@@ -1,0 +1,43 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Facturas</h3>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success" (click)="create()">Crear</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let bill of bills">
+                                <td>{{ bill.id }}</td>
+                                <td>{{ bill.customerName }}</td>
+                                <td>{{ bill.amount }}</td>
+                                <td>{{ bill.date }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="view(bill.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="update(bill.id)">Editar</button>
+                                    <button type="button" class="btn btn-dark"
+                                        (click)="delete(bill.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

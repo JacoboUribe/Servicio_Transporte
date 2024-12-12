@@ -35,7 +35,6 @@ export default class CategoriesController {
         const body = await request.validate(CategoryValidator);
         theCategory.category_name = body.category_name;
         theCategory.description = body.description;
-        theCategory.category_padre = body.categoryPadre;
         await theCategory.load("categoryPadre")
         await theCategory.load("categoryHija")
         return await theCategory.save();

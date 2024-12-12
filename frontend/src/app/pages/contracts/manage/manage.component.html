@@ -1,0 +1,85 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Id:</label>
+                            </div>
+                            <div class="col-8">
+                                <p>{{contract.id}}</p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Fecha de inicio:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" class="form-control" [(ngModel)]="contract.start_date"
+                                    formControlName="start_date" [readonly]="mode === 1" />
+                                <div
+                                    *ngIf="theFormGroup.get('start_date').errors && (theFormGroup.get('start_date').dirty || theFormGroup.get('start_date').touched || trySend)">
+                                    <strong *ngIf="theFormGroup.get('start_date').errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Fecha de fin:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" class="form-control" [(ngModel)]="contract.end_date"
+                                    formControlName="end_date" [readonly]="mode === 1" />
+                                <div
+                                    *ngIf="theFormGroup.get('end_date').errors && (theFormGroup.get('end_date').dirty || theFormGroup.get('end_date').touched || trySend)">
+                                    <strong *ngIf="theFormGroup.get('end_date').errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Customer ID:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" class="form-control" [(ngModel)]="contract.customer_id"
+                                    formControlName="customer_id" [readonly]="mode === 1" />
+                                <div
+                                    *ngIf="theFormGroup.get('customer_id').errors && (theFormGroup.get('customer_id').dirty || theFormGroup.get('customer_id').touched || trySend)">
+                                    <strong *ngIf="theFormGroup.get('customer_id').errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="theFormGroup.get('customer_id').errors.min" class="msnError">Valor
+                                        mínimo debe ser 1</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                                <button *ngIf="mode == 2" class="btn btn-success btn-block"
+                                    (click)="create()">Crear</button>
+                                <button *ngIf="mode == 3" class="btn btn-success btn-block"
+                                    (click)="update()">Actualizar</button>
+                                <button *ngIf="mode == 1" class="btn btn-primary btn-block"
+                                    (click)="router.navigate(['/contracts/list'])">Volver</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

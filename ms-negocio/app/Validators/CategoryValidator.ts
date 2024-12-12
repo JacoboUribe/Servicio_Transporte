@@ -6,9 +6,9 @@ export default class CategoryValidator {
 
   public schema = schema.create({
     id: schema.number.optional([rules.unique({ table: 'categories', column: 'id', where: { id: this.ctx.request.input('id') } })]),
-    category_name: schema.string({ trim: true }),
-    description: schema.string({ trim: true }),
-    categoryPadre:schema.number([rules.exists({ table: 'categories', column: 'id' })])
+    category_name: schema.string({}, [rules.maxLength(255)]),
+    description: schema.string({}, [rules.maxLength(255),]),
+    category_padre: schema.number.optional([rules.exists({ table: 'categories', column: 'id' })])
   })
 
 

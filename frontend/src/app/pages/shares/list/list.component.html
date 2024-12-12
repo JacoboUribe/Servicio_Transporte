@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Listado de Participaciones</h2>
+    <button class="btn btn-primary" (click)="create()">Crear Participación</button>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let share of shares">
+                <td>{{ share.id }}</td>
+                <td>{{ share.name }}</td>
+                <td>{{ share.description }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="view(share.id)">Ver</button>
+                    <button class="btn btn-warning" (click)="update(share.id)">Editar</button>
+                    <button class="btn btn-danger" (click)="delete(share.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

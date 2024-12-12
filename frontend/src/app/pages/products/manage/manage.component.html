@@ -1,0 +1,58 @@
+<div class="container">
+    <h1>{{ mode === 2 ? "Crear" : mode === 3 ? "Actualizar" : "Ver" }} Producto</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="mode === 2 ? create() : update()">
+        <div class="form-group">
+            <label for="product_name">Nombre del Producto</label>
+            <input id="product_name" formControlName="product_name" class="form-control"
+                [class.is-invalid]="formGroup.get('product_name').invalid && trySend" />
+            <div *ngIf="formGroup.get('product_name').invalid && trySend" class="invalid-feedback">
+                <div *ngIf="formGroup.get('product_name').hasError('required')">El nombre del producto es obligatorio.
+                </div>
+                <div *ngIf="formGroup.get('product_name').hasError('minlength')">El nombre del producto debe tener al
+                    menos 3 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <input id="description" formControlName="description" class="form-control"
+                [class.is-invalid]="formGroup.get('description').invalid && trySend" />
+            <div *ngIf="formGroup.get('description').invalid && trySend" class="invalid-feedback">
+                <div *ngIf="formGroup.get('description').hasError('required')">La descripción es obligatoria.</div>
+                <div *ngIf="formGroup.get('description').hasError('minlength')">La descripción debe tener al menos 10
+                    caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="expiration_date">Fecha de Expiración</label>
+            <input id="expiration_date" formControlName="expiration_date" type="date" class="form-control"
+                [class.is-invalid]="formGroup.get('expiration_date').invalid && trySend" />
+            <div *ngIf="formGroup.get('expiration_date').invalid && trySend" class="invalid-feedback">
+                La fecha de expiración es obligatoria.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lot_id">ID de Lote</label>
+            <input id="lot_id" formControlName="lot_id" type="number" class="form-control"
+                [class.is-invalid]="formGroup.get('lot_id').invalid && trySend" />
+            <div *ngIf="formGroup.get('lot_id').invalid && trySend" class="invalid-feedback">
+                <div *ngIf="formGroup.get('lot_id').hasError('required')">El ID del lote es obligatorio.</div>
+                <div *ngIf="formGroup.get('lot_id').hasError('min')">El ID del lote debe ser mayor a 0.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="customer_id">ID de Cliente</label>
+            <input id="customer_id" formControlName="customer_id" type="number" class="form-control"
+                [class.is-invalid]="formGroup.get('customer_id').invalid && trySend" />
+            <div *ngIf="formGroup.get('customer_id').invalid && trySend" class="invalid-feedback">
+                <div *ngIf="formGroup.get('customer_id').hasError('required')">El ID del cliente es obligatorio.</div>
+                <div *ngIf="formGroup.get('customer_id').hasError('min')">El ID del cliente debe ser mayor a 0.</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Guardar</button>
+    </form>
+</div>
