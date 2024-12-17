@@ -1,41 +1,46 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Share } from "src/app/models/share.model";
-import { ShareService } from "src/app/services/share.service";
-import Swal from "sweetalert2";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Share } from 'src/app/models/share.model';
+import { ShareService } from 'src/app/services/share.service';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: "app-share-manage",
-  templateUrl: "./manage.component.html",
-  styleUrls: ["./manage.component.css"],
+  selector: 'app-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
+
   share: Share;
-  mode: number; // mode = 1 ---> view, mode = 2 ---> create, mode = 3 ---> update
-  theFormGroup: FormGroup;
+  mode: number;
+  shareFormGroup: FormGroup;
   trySend: boolean;
 
   constructor(
     private shareService: ShareService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private theFormBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    this.share = { id: 0, amount: 0, interest: 0, contract_id: 0 };
+    this.share = {
+      id: 0,
+      amount: 0,
+      interest: 0,
+      contract_id: 0
+    };
     this.mode = 0;
     this.trySend = false;
     this.configFormGroup();
   }
 
   ngOnInit(): void {
-    const currentUrl = this.activateRoute.snapshot.url.join("/");
-
-    if (currentUrl.includes("view")) {
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    if (currentUrl.includes('view')) {
       this.mode = 1;
-    } else if (currentUrl.includes("create")) {
+    } else if (currentUrl.includes('create')) {
       this.mode = 2;
-    } else if (currentUrl.includes("update")) {
+    } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
 
@@ -46,47 +51,48 @@ export class ManageComponent implements OnInit {
   }
 
   configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      amount: ["", [Validators.required, Validators.min(1)]],
-      interest: ["", [Validators.required, Validators.min(0)]],
-      contract_id: ["", [Validators.required]],
+    this.shareFormGroup = this.formBuilder.group({
+      id: [null],
+      amount: [0, [Validators.required, Validators.min(0)]],
+      interest: [0, [Validators.required, Validators.min(0), Validators.max(1)]],
+      contract_id: [0, [Validators.required]]
     });
   }
 
-  get getTheFormGroup() {
-    return this.theFormGroup.controls;
+  get formControls() {
+    return this.shareFormGroup.controls;
   }
 
   getShare(id: number) {
-    this.shareService.view(id).subscribe((data) => {
+    this.shareService.view(id).subscribe((data: Share) => {
       this.share = data;
-      this.theFormGroup.patchValue(this.share);
+      this.shareFormGroup.patchValue(data);
     });
   }
 
   create() {
-    if (this.theFormGroup.invalid) {
+    if (this.shareFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire("Error en el formulario", "Revisa los campos en rojo", "error");
+      Swal.fire('Error en el formulario', 'Revisa los campos en rojo', 'error');
       return;
     }
 
-    this.shareService.create(this.theFormGroup.value).subscribe(() => {
-      Swal.fire("Creado", "La cuota se ha creado correctamente", "success");
-      this.router.navigate(["/shares/list"]);
+    this.shareService.create(this.share).subscribe(() => {
+      Swal.fire('Creado', 'Se ha creado el share', 'success');
+      this.router.navigate(['/shares/list']);
     });
   }
 
   update() {
-    if (this.theFormGroup.invalid) {
+    if (this.shareFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire("Error en el formulario", "Revisa los campos en rojo", "error");
+      Swal.fire('Error en el formulario', 'Revisa los campos en rojo', 'error');
       return;
     }
 
     this.shareService.update(this.share).subscribe(() => {
-      Swal.fire("Actualizado", "La cuota ha sido actualizada correctamente", "success");
-      this.router.navigate(["/shares/list"]);
+      Swal.fire('Actualizado', 'Se ha actualizado el share', 'success');
+      this.router.navigate(['/shares/list']);
     });
   }
 }

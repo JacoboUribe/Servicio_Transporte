@@ -2,21 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BillsRoutingModule } from './bills-routing.module';
-import { ManageComponent } from './manage/manage.component';
 import { ListComponent } from './list/list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManageComponent } from './manage/manage.component';
 
 
 @NgModule({
   declarations: [
-    ManageComponent,
-    ListComponent
+    ListComponent,
+    ManageComponent
   ],
   imports: [
     CommonModule,
-    BillsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    BillsRoutingModule
   ]
 })
 export class BillsModule { }

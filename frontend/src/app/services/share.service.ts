@@ -9,32 +9,31 @@ import { Share } from '../models/share.model';
 })
 export class ShareService {
 
- constructor(private http: HttpClient) { }
-  
-    list(): Observable<Share[]> {
-      return this.http.get<Share[]>(`${environment.url_ms_cinema}/shares`);
-    }
-    delete(id: number) {
-      return this.http.delete<Share>(
-        `${environment.url_ms_cinema}/shares/${id}`
-      );
-    }
-    view(id: number): Observable<Share> {
-      return this.http.get<Share>(
-        `${environment.url_ms_cinema}/shares/${id}`
-      );
-    }
-    create(Share: Share): Observable<Share> {
-      delete Share.id;
-      return this.http.post<Share>(
-        `${environment.url_ms_cinema}/shares`,
-        Share
-      );
-    }
-    update(Share: Share): Observable<Share> {
-      return this.http.put<Share>(
-        `${environment.url_ms_cinema}/shares/${Share.id}`,
-        Share
-      );
-    }
-}
+  constructor(private http: HttpClient) { }
+
+  list(): Observable<Share[]> {
+    return this.http.get<Share[]>(`${environment.url_ms_cinema}/shares`);
+  }
+  delete(id: number) {
+    return this.http.delete<Share>(
+      `${environment.url_ms_cinema}/shares/${id}`
+    );
+  }
+  view(id: number): Observable<Share> {
+    return this.http.get<Share>(
+      `${environment.url_ms_cinema}/shares/${id}`
+    );
+  }
+  create(Share: Share): Observable<Share> {
+    delete Share.id;
+    return this.http.post<Share>(
+      `${environment.url_ms_cinema}/shares`,
+      Share
+    );
+  }
+  update(Share: Share): Observable<Share> {
+    return this.http.put<Share>(
+      `${environment.url_ms_cinema}/shares/${Share.id}`,
+      Share
+    );
+  }}

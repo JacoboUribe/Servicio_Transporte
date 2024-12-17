@@ -2,21 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AddressesRoutingModule } from './addresses-routing.module';
-import { ManageComponent } from './manage/manage.component';
 import { ListComponent } from './list/list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManageComponent } from './manage/manage.component';
 
 
 @NgModule({
   declarations: [
-    ManageComponent,
-    ListComponent
+    ListComponent,
+    ManageComponent
   ],
   imports: [
     CommonModule,
-    AddressesRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    AddressesRoutingModule
   ]
 })
 export class AddressesModule { }

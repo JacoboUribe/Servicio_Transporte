@@ -13,29 +13,20 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     {
-        path: 'addresses',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/addresses/addresses.module').then(m => m.AddressesModule)
-            }
-        ]
-    },
-    {
-        path: 'administrators',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/administrators/administrators.module').then(m => m.AdministratorsModule)
-            }
-        ]
-    },
-    {
         path: 'bills',
         children: [
             {
                 path: '',
                 loadChildren: () => import('src/app/pages/bills/bills.module').then(m => m.BillsModule)
+            }
+        ]
+    },
+    {
+        path: 'cities',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('src/app/pages/cities/cities.module').then(m => m.CitiesModule)
             }
         ]
     },
@@ -58,29 +49,11 @@ export const AdminLayoutRoutes: Routes = [
         ]
     },
     {
-        path: 'drivers',
+        path: 'departments',
         children: [
             {
                 path: '',
-                loadChildren: () => import('src/app/pages/customers/customers.module').then(m => m.CustomersModule)
-            }
-        ]
-    },
-    {
-        path: 'lots',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/customers/customers.module').then(m => m.CustomersModule)
-            }
-        ]
-    },
-    {
-        path: 'operations',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/operations/operations.module').then(m => m.OperationsModule)
+                loadChildren: () => import('src/app/pages/departments/departments.module').then(m => m.DepartmentsModule)
             }
         ]
     },
@@ -94,34 +67,7 @@ export const AdminLayoutRoutes: Routes = [
         ]
     },
     {
-        path: 'owners',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/owners/owners.module').then(m => m.OwnersModule)
-            }
-        ]
-    },
-    {
-        path: 'products',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/products/products.module').then(m => m.ProductsModule)
-            }
-        ]
-    },
-    {
         path: 'routes',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/routes/routes.module').then(m => m.RoutesModule)
-            }
-        ]
-    },
-    {
-        path: 'services',
         children: [
             {
                 path: '',
@@ -134,34 +80,7 @@ export const AdminLayoutRoutes: Routes = [
         children: [
             {
                 path: '',
-                loadChildren: () => import('src/app/pages/routes/routes.module').then(m => m.RoutesModule)
-            }
-        ]
-    },
-    {
-        path: 'spents',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/routes/routes.module').then(m => m.RoutesModule)
-            }
-        ]
-    },
-    {
-        path: 'vehicle-drivers',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/vehicle-drivers/vehicle-drivers.module').then(m => m.VehicleDriversModule)
-            }
-        ]
-    },
-    {
-        path: 'vehicle-owners',
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('src/app/pages/vehicle-owners/vehicle-owners.module').then(m => m.VehicleOwnersModule)
+                loadChildren: () => import('src/app/pages/shares/shares.module').then(m => m.SharesModule)
             }
         ]
     },
@@ -171,6 +90,24 @@ export const AdminLayoutRoutes: Routes = [
             {
                 path: '',
                 loadChildren: () => import('src/app/pages/vehicles/vehicles.module').then(m => m.VehiclesModule)
+            }
+        ]
+    },
+    {
+        path: 'natural-peoples',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('src/app/pages/natural-peoples/natural-peoples.module').then(m => m.NaturalPeoplesModule)
+            }
+        ]
+    },
+    {
+        path: 'addresses',
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('src/app/pages/addresses/addresses.module').then(m => m.AddressesModule)
             }
         ]
     },
