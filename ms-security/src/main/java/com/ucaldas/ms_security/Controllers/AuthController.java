@@ -1,12 +1,7 @@
 package com.ucaldas.ms_security.Controllers;
 
 
-import com.ucaldas.ms_security.Entities.EmailContent;
-// import com.ucaldas.ms_security.Entities.Recipient;
-import com.ucaldas.ms_security.Entities.UserEntity;
-import com.ucaldas.ms_security.Models.User;
 import com.ucaldas.ms_security.Services.OAuth2Service;
-import com.ucaldas.ms_security.Services.NotificationsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

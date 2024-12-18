@@ -52,10 +52,9 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.contractFormGroup = this.formBuilder.group({
-      id: [null],
       start_date: [new Date(), [Validators.required]],
       end_date: [new Date(), [Validators.required]],
-      customer_id: [0, [Validators.required, Validators.min(1)]],
+      customer_id: [null, [Validators.required, Validators.min(1)]],
     });
   }
 

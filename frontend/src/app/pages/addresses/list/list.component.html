@@ -1,1 +1,49 @@
-<p>list works!</p>
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+
+<!-- Contenido de la página -->
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Lista de Direcciones</h3>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear
+                        Dirección</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre Dirección</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Referencias</th>
+                                <th scope="col">Barrio</th>
+                                <th scope="col">Ciudad ID</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let address of addresses">
+                                <td>{{ address.id }}</td>
+                                <td>{{ address.address_name }}</td>
+                                <td>{{ address.address }}</td>
+                                <td>{{ address.references }}</td>
+                                <td>{{ address.neighborhood }}</td>
+                                <td>{{ address.city_id }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        (click)="view(address.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                        (click)="update(address.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="delete(address.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

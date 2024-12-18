@@ -51,9 +51,8 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.orderRouteFormGroup = this.formBuilder.group({
-      id: [null],
-      route_id: [0, [Validators.required]],
-      address_id: [0, [Validators.required]],
+      route_id: [null, [Validators.required]],
+      address_id: [null, [Validators.required]],
     });
   }
 

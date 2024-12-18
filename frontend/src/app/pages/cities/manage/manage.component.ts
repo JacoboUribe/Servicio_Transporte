@@ -52,7 +52,6 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.cityFormGroup = this.formBuilder.group({
-      id: [null],
       city_name: ['', [Validators.required, Validators.minLength(1)]],
       zip_code: ['', [Validators.required, Validators.maxLength(10)]],
       department_id: [0, [Validators.required, Validators.min(1)]],

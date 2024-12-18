@@ -1,1 +1,51 @@
-<p>list works!</p>
+<div class="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Lista de Rutas</h3>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear Nueva
+                        Ruta</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Punto de Inicio</th>
+                                <th scope="col">Punto de Destino</th>
+                                <th scope="col">Distancia (km)</th>
+                                <th scope="col">Fecha de Entrega</th>
+                                <th scope="col">ID Contrato</th>
+                                <th scope="col">ID Vehículo</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let route of routes">
+                                <td>{{ route.id }}</td>
+                                <td>{{ route.starting_point }}</td>
+                                <td>{{ route.destination_point }}</td>
+                                <td>{{ route.distance }}</td>
+                                <td>{{ route.delivery_date | date: 'shortDate' }}</td>
+                                <td>{{ route.contract_id }}</td>
+                                <td>{{ route.vehicle_id }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        (click)="view(route.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                        (click)="update(route.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="delete(route.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,10 +52,9 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.shareFormGroup = this.formBuilder.group({
-      id: [null],
       amount: [0, [Validators.required, Validators.min(0)]],
       interest: [0, [Validators.required, Validators.min(0), Validators.max(1)]],
-      contract_id: [0, [Validators.required]]
+      contract_id: [null, [Validators.required]]
     });
   }
 

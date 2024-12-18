@@ -1,1 +1,47 @@
-<p>list works!</p>
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Lista de Personas Naturales</h3>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear Persona
+                        Natural</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Tipo de Documento</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                                <th scope="col">ID Cliente</th>
+                                <th scope="col">ID Usuario</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let person of naturalpeoples">
+                                <td>{{ person.id }}</td>
+                                <td>{{ person.type_document }}</td>
+                                <td>{{ person.birthdate | date: 'dd/MM/yyyy' }}</td>
+                                <td>{{ person.customer_id }}</td>
+                                <td>{{ person.user_id }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        (click)="view(person.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                        (click)="update(person.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="delete(person.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

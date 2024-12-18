@@ -54,13 +54,11 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.addressFormGroup = this.formBuilder.group({
-      id: [null],
       address_name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       address: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]],
       references: ['', [Validators.minLength(4), Validators.maxLength(100)]],
       neighborhood: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      city_id: [0, [Validators.required, Validators.min(1)]],
-      distribution_center_id: [0, [Validators.required, Validators.min(1)]],
+      city_id: [null, [Validators.required, Validators.min(1)]],
     });
   }
 

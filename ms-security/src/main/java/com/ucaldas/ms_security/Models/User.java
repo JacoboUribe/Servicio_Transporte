@@ -13,7 +13,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String resetCode; 
+    private String resetCode;
     @DBRef
     private Role role;
 

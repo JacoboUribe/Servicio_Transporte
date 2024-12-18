@@ -9,28 +9,33 @@ import { environment } from 'src/environments/environment';
 })
 export class VehicleService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  //observable es una clase que permite manejar eventos asincronos
   list(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(`${environment.url_ms_cinema}/vehicles`);
   }
-  delete(id: number) {
-    return this.http.delete<Vehicle>(
-      `${environment.url_ms_cinema}/vehicles/${id}`
-    );
-  }
+
   view(id: number): Observable<Vehicle> {
     return this.http.get<Vehicle>(
       `${environment.url_ms_cinema}/vehicles/${id}`
     );
   }
+
+  delete(id: number) {
+    return this.http.delete<Vehicle>(
+      `${environment.url_ms_cinema}/vehicles/${id}`
+    );
+  }
+
   create(Vehicle: Vehicle): Observable<Vehicle> {
-    delete Vehicle.id;
     return this.http.post<Vehicle>(
       `${environment.url_ms_cinema}/vehicles`,
       Vehicle
     );
   }
+  //en la proxima clase colocamos el interceptor
+
   update(Vehicle: Vehicle): Observable<Vehicle> {
     return this.http.put<Vehicle>(
       `${environment.url_ms_cinema}/vehicles/${Vehicle.id}`,

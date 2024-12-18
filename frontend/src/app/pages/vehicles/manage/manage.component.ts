@@ -52,7 +52,6 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.vehicleFormGroup = this.formBuilder.group({
-      id: [null],
       license: ['', [Validators.required, Validators.maxLength(255)]],
       model: ['', [Validators.required, Validators.maxLength(255)]],
       load_capacity: [0, [Validators.required, Validators.min(0)]]

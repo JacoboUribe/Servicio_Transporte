@@ -1,1 +1,144 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <form class="form" [formGroup]="routeFormGroup">
+                    <div class="card-body">
+                        <!-- ID -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>ID:</label>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ route.id }}</p>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Starting Point -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Punto de partida:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="route.starting_point"
+                                    formControlName="starting_point" />
+                                <div *ngIf="
+                  formControls.starting_point.errors &&
+                  (formControls.starting_point.dirty || formControls.starting_point.touched || trySend)">
+                                    <strong *ngIf="formControls.starting_point.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Destination Point -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Punto de destino:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="route.destination_point"
+                                    formControlName="destination_point" />
+                                <div *ngIf="
+                  formControls.destination_point.errors &&
+                  (formControls.destination_point.dirty || formControls.destination_point.touched || trySend)">
+                                    <strong *ngIf="formControls.destination_point.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Distance -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Distancia:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" class="form-control" [(ngModel)]="route.distance"
+                                    formControlName="distance" />
+                                <div *ngIf="
+                  formControls.distance.errors &&
+                  (formControls.distance.dirty || formControls.distance.touched || trySend)">
+                                    <strong *ngIf="formControls.distance.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="formControls.distance.errors.min" class="msnError">Debe ser un valor
+                                        positivo</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Delivery Date -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Fecha de entrega:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" class="form-control" [(ngModel)]="route.delivery_date"
+                                    formControlName="delivery_date" />
+                                <div *ngIf="
+                  formControls.delivery_date.errors &&
+                  (formControls.delivery_date.dirty || formControls.delivery_date.touched || trySend)">
+                                    <strong *ngIf="formControls.delivery_date.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Vehicle ID -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>ID del vehículo:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" class="form-control" [(ngModel)]="route.vehicle_id"
+                                    formControlName="vehicle_id" />
+                                <div *ngIf="
+                  formControls.vehicle_id.errors &&
+                  (formControls.vehicle_id.dirty || formControls.vehicle_id.touched || trySend)">
+                                    <strong *ngIf="formControls.vehicle_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Contract ID -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label>ID del contrato:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" class="form-control" [(ngModel)]="route.contract_id"
+                                    formControlName="contract_id" />
+                                <div *ngIf="
+                  formControls.contract_id.errors &&
+                  (formControls.contract_id.dirty || formControls.contract_id.touched || trySend)">
+                                    <strong *ngIf="formControls.contract_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Buttons -->
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                                <button *ngIf="mode == 2" type="button" class="btn btn-success btn-block"
+                                    (click)="create()">Crear</button>
+                                <button *ngIf="mode == 3" type="button" class="btn btn-success btn-block"
+                                    (click)="update()">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,4 +26,18 @@ export default class OrderRoutesController {
         const theOrderRoute: OrderRoute = await OrderRoute.create(body);
         return theOrderRoute
     }
+
+     public async update({ params, request }: HttpContextContract) {
+            const theOrderRoute: OrderRoute = await OrderRoute.findOrFail(params.id);
+            const body = await request.validate(OrderRouteValidator);
+            theOrderRoute.route_id = body.route_id;
+            theOrderRoute.address_id = body.address_id;
+            return await theOrderRoute.save();
+        }
+    
+        public async delete({ params, response }: HttpContextContract) {
+            const theOrderRoute: OrderRoute = await OrderRoute.findOrFail(params.id);
+                response.status(204);
+                return await theOrderRoute.delete();
+        }
 }

@@ -55,13 +55,12 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.routeFormGroup = this.formBuilder.group({
-      id: [null],
       starting_point: ['', [Validators.required]],
       destination_point: ['', [Validators.required]],
       distance: [0, [Validators.required, Validators.min(0)]],
       delivery_date: ['', [Validators.required]],
-      vehicle_id: [0, [Validators.required]],
-      contract_id: [0, [Validators.required]],
+      vehicle_id: [null, [Validators.required]],
+      contract_id: [null, [Validators.required]],
     });
   }
 

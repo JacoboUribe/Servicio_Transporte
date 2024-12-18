@@ -53,11 +53,10 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.billFormGroup = this.formBuilder.group({
-      id: [null],
       date_time: [new Date(), [Validators.required]],
       details: ['', [Validators.maxLength(255)]],
-      share_id: [0, [Validators.required, Validators.min(1)]],
-      spent_id: [0, [Validators.required, Validators.min(1)]],
+      share_id: [null, [Validators.required, Validators.min(1)]],
+      spent_id: [null, [Validators.required, Validators.min(1)]],
     });
   }
 

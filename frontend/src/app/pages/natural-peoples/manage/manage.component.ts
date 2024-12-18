@@ -53,11 +53,9 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.naturalPeopleFormGroup = this.formBuilder.group({
-      id: [null],
       type_document: ['', [Validators.required]],
       birthdate: ['', [Validators.required]],
-      customer_id: [0, [Validators.required]],
-      business_id: [0, [Validators.required]],
+      customer_id: [null, [Validators.required]],
       user_id: ['', [Validators.required]],
     });
   }

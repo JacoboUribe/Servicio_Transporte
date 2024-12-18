@@ -1,1 +1,48 @@
-<p>list works!</p>
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Lista de Vehículos</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn btn-outline-success" (click)="create()">Crear</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Placa</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Capacidad de Carga</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let vehicle of vehicles">
+                                <td>{{ vehicle.id }}</td>
+                                <td>{{ vehicle.license }}</td>
+                                <td>{{ vehicle.model }}</td>
+                                <td>{{ vehicle.load_capacity }} kg</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm"
+                                        (click)="view(vehicle.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                        (click)="update(vehicle.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="delete(vehicle.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

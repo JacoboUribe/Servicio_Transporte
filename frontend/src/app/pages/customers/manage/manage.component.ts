@@ -51,7 +51,6 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.customerFormGroup = this.formBuilder.group({
-      id: [null],
       phone_number: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)]],
       number_orders: [0, [Validators.required, Validators.min(0)]],
     });
