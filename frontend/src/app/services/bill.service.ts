@@ -14,6 +14,9 @@ export class BillService {
   list(): Observable<Bill[]> {
     return this.http.get<Bill[]>(`${environment.url_ms_cinema}/bills`);
   }
+  listByShare(shareId:number): Observable<Bill[]>{
+    return this.http.get<Bill[]>(`${environment.url_ms_cinema}/bills?share_id=${shareId}`)
+  }
   delete(id: number) {
     return this.http.delete<Bill>(
       `${environment.url_ms_cinema}/bills/${id}`

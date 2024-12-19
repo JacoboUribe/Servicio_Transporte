@@ -19,7 +19,17 @@ export const ROUTES: RouteInfo[] = [
     { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '2' },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '0' },
     { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '0' },
-    {path: '/theaters/list', title: 'Teatros',  icon:'ni-circle-08 text-pink', class: '1'}
+    {path: '/addresses/list', title: 'Direcciones',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/bills/list', title: 'Facturas',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/cities/list', title: 'Ciudades',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/contracts/list', title: 'Contratos',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/customers/list', title: 'Clientes',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/departments/list', title: 'Departamentos',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/natural-peoples/list', title: 'Personas Naturales',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/order-routes/list', title: 'Orden de Rutas',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/routes/list', title: 'Rutas',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/shares/list', title: 'Cuota',  icon:'ni-circle-08 text-pink', class: '1'},
+    {path: '/vehicles/list', title: 'Vehiculos',  icon:'ni-circle-08 text-pink', class: '1'},
 ];
 
 @Component({

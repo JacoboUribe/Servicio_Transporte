@@ -6,10 +6,13 @@ export default class SharesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theShare: Share = await Share.findOrFail(params.id)
-            theShare.load("bills")
+            // theShare.load("bills")
             return theShare;
         } else {
             const data = request.all()
+            if("customer_id" in data){
+                return await Share.query().where("customer_id", request.input("customer_id"))
+            }
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);

@@ -14,6 +14,9 @@ export class AddressService {
   list(): Observable<Address[]> {
     return this.http.get<Address[]>(`${environment.url_ms_cinema}/addresses`);
   }
+  listByCity(cityId:number): Observable<Address[]>{
+    return this.http.get<Address[]>(`${environment.url_ms_cinema}/addresses?city_id=${cityId}`)
+  }
   delete(id: number) {
     return this.http.delete<Address>(
       `${environment.url_ms_cinema}/addresses/${id}`

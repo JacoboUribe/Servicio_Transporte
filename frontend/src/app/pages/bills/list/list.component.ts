@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Bill } from 'src/app/models/bill.model';
 import { BillService } from 'src/app/services/bill.service';
 import Swal from 'sweetalert2';
@@ -12,15 +12,21 @@ import Swal from 'sweetalert2';
 export class ListComponent implements OnInit {
 
   bills: Bill[];
-
-  constructor(private billsService: BillService, private router: Router) {
+  shareId= 0;
+  constructor(private billsService: BillService, private router: Router, private route:ActivatedRoute) {
     console.log("Constructor");
     this.bills = [];
+    this.shareId= 0;
   }
 
   ngOnInit(): void {
-    console.log("Ng");
-    this.list();
+    this.shareId = Number(this.route.snapshot.params['id']);
+    const currentUrl = this.route.snapshot.url.join('/');
+    if (currentUrl.includes('filterByShare')) {
+      this.filterByShare();
+    } else {
+      this.list();
+    }
   }
   list() {
     this.billsService.list().subscribe((data) => {
@@ -57,5 +63,10 @@ export class ListComponent implements OnInit {
   update(id: number) {
     this.router.navigate(["bills/update", id]);
   }
+  filterByShare() {
+    this.billsService.listByShare(this.shareId).subscribe(data => {
+      this.bills = data;
+    });
+  }  
 
 }

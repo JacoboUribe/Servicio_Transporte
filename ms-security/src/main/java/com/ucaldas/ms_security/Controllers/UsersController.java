@@ -4,6 +4,7 @@ import com.ucaldas.ms_security.Models.User;
 import com.ucaldas.ms_security.Repositories.UserRepository;
 import com.ucaldas.ms_security.Services.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,16 +38,16 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
-    public User update(@PathVariable String id, @RequestBody User newUser){
-        User actualUser=this.theUserRepository.findById(id).orElse(null);
-        if (actualUser != null){
+    public ResponseEntity<User> update(@PathVariable String id, @RequestBody User newUser) {
+        User actualUser = this.theUserRepository.findById(id).orElse(null);
+        if (actualUser != null) {
             actualUser.setName(newUser.getName());
             actualUser.setEmail(newUser.getEmail());
             actualUser.setPassword(this.theEncryptionService.convertSHA256(newUser.getPassword()));
-            this.theUserRepository.save(newUser);
-            return newUser;
-        }else {
-            return null;
+            this.theUserRepository.save(actualUser);
+            return ResponseEntity.ok(actualUser);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

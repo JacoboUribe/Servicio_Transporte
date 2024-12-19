@@ -10,6 +10,9 @@ export default class AddressesController {
             return theAddress;
         } else {
             const data = request.all()
+            if("department_id" in data){
+                return await Address.query().where("city_id", request.input("city_id"))
+                }
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);

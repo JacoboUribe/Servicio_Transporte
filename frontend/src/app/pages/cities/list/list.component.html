@@ -1,44 +1,54 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
 
 <!-- Contenido de la página -->
 <div class="container-fluid mt--7">
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header border-0">
-                    <h3 class="mb-0">Lista de Ciudades</h3>
-                </div>
-                <div class="card-body">
-                    <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear Ciudad</button>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Código Postal</th>
-                                <th scope="col">Nombre de la Ciudad</th>
-                                <th scope="col">Departamento</th>
-                                <th scope="col">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let city of cities">
-                                <td>{{ city.id }}</td>
-                                <td>{{ city.zip_code }}</td>
-                                <td>{{ city.city_name }}</td>
-                                <td>{{ city.department_id }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-sm"
-                                        (click)="view(city.id)">Ver</button>
-                                    <button type="button" class="btn btn-warning btn-sm"
-                                        (click)="update(city.id)">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                        (click)="delete(city.id)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 bg-info text-white">
+          <h3 class="mb-0">Lista de Ciudades</h3>
         </div>
+        <div class="card-body">
+          <!-- Botón Crear Ciudad -->
+          <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear Ciudad</button>
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table class="table table-striped align-items-center">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Código Postal</th>
+                  <th scope="col">Nombre de la Ciudad</th>
+                  <th scope="col">Departamento</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let city of cities">
+                  <td>{{ city.id }}</td>
+                  <td>{{ city.zip_code }}</td>
+                  <td>{{ city.city_name }}</td>
+                  <td>{{ city.department_id }}</td>
+                  <td>
+                    <button type="button" class="btn btn-info btn-sm" (click)="view(city.id)">
+                      Ver
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="update(city.id)">
+                      Editar
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="delete(city.id)">
+                      Eliminar
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" (click)="showAddresses(city.id)">
+                      Direcciones
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

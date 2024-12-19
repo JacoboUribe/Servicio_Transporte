@@ -12,6 +12,9 @@ export default class CitiesController {
             return theCity;
         } else {
             const data = request.all()
+            if("department_id" in data){
+                return await City.query().where("department_id", request.input("department_id"))
+            }
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);

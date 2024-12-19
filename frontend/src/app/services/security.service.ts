@@ -22,7 +22,7 @@ export class SecurityService {
   * @returns Respuesta HTTP la cual indica si el usuario tiene permiso de acceso
   */
   login(user: User): Observable<any> {
-    return this.http.post<any>(`${environment.url_ms_security}/security/login`, user);
+    return this.http.post<any>(`${environment.url_ms_security}/api/public/security/login`, user);
   }
   /*
   Guardar la información de usuario en el local storage
@@ -100,4 +100,5 @@ export class SecurityService {
     let sesionActual = localStorage.getItem('sesion');
     return sesionActual;
   }
+  
 }

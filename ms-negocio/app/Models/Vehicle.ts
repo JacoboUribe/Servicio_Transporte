@@ -19,6 +19,18 @@ export default class Vehicle extends BaseModel {
   @column()
   public load_capacity:number
 
+  @column()
+  public latitud_inicial: number;
+
+  @column()
+  public latitud_final:number;
+
+  @column()
+  public longitud_inicial:number
+
+  @column()
+  public longitud_final:number
+
   @hasMany(() => Insurance, {
     foreignKey: 'vehicle_id'
   })

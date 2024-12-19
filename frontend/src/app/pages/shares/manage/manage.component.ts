@@ -27,6 +27,7 @@ export class ManageComponent implements OnInit {
       id: 0,
       amount: 0,
       interest: 0,
+      status: false,
       contract_id: 0
     };
     this.mode = 0;
@@ -54,7 +55,8 @@ export class ManageComponent implements OnInit {
     this.shareFormGroup = this.formBuilder.group({
       amount: [0, [Validators.required, Validators.min(0)]],
       interest: [0, [Validators.required, Validators.min(0), Validators.max(1)]],
-      contract_id: [null, [Validators.required]]
+      contract_id: [null, [Validators.required]],
+      status: [this.share.status || false, Validators.required],
     });
   }
 
@@ -93,5 +95,12 @@ export class ManageComponent implements OnInit {
       Swal.fire('Actualizado', 'Se ha actualizado el share', 'success');
       this.router.navigate(['/shares/list']);
     });
+  }
+  payment() {
+    console.log(JSON.stringify(this.share));
+    this.shareService.update(this.share).subscribe((data) => {
+      Swal.fire("PAGO", " se ha PAGADO exitosa mente", "success"); //titulo a la alerta
+      this.router.navigate(["shares/list"]);
+  });
   }
 }

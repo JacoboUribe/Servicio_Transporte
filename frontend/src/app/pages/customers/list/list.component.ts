@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { log } from 'console';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import Swal from 'sweetalert2';
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
 
   customers: Customer[];
 
-  constructor(private customersService: CustomerService, private router: Router) {
+  constructor(private customersService: CustomerService, private router: Router, private route:ActivatedRoute) {
     console.log("Constructor");
     this.customers = [];
   }
@@ -57,5 +58,8 @@ export class ListComponent implements OnInit {
   update(id: number) {
     this.router.navigate(["customers/update", id]);
   }
-
+  showContracts(id:number){
+    console.log(id);
+    this.router.navigate(["contracts/filterByCustomer", id])
+  }
 }

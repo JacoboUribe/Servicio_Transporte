@@ -1,45 +1,54 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-gradient-info pb-8 pt-5 pt-md-8"></div>
 
 <!-- Contenido de la página -->
 <div class="container-fluid mt--7">
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header border-0">
-                    <h3 class="mb-0">Lista de Contratos</h3>
-                </div>
-                <div class="card-body">
-                    <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear
-                        Contrato</button>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Fecha de Inicio</th>
-                                <th scope="col">Fecha de Fin</th>
-                                <th scope="col">Cliente ID</th>
-                                <th scope="col">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let contract of contracts">
-                                <td>{{ contract.id }}</td>
-                                <td>{{ contract.start_date | date }}</td>
-                                <td>{{ contract.end_date | date }}</td>
-                                <td>{{ contract.customer_id }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-sm"
-                                        (click)="view(contract.id)">Ver</button>
-                                    <button type="button" class="btn btn-warning btn-sm"
-                                        (click)="update(contract.id)">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                        (click)="delete(contract.id)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 bg-info text-white">
+          <h3 class="mb-0">Lista de Contratos</h3>
         </div>
+        <div class="card-body">
+          <!-- Botón Crear Contrato -->
+          <button type="button" class="btn btn-outline-success mb-3" (click)="create()">Crear Contrato</button>
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table class="table table-striped align-items-center">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Fecha de Inicio</th>
+                  <th scope="col">Fecha de Fin</th>
+                  <th scope="col">Cliente ID</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contract of contracts">
+                  <td>{{ contract.id }}</td>
+                  <td>{{ contract.start_date | date }}</td>
+                  <td>{{ contract.end_date | date }}</td>
+                  <td>{{ contract.customer_id }}</td>
+                  <td>
+                    <button type="button" class="btn btn-info btn-sm" (click)="view(contract.id)">
+                      Ver
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="update(contract.id)">
+                      Editar
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="delete(contract.id)">
+                      Eliminar
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" (click)="showShares(contract.id)">
+                      Cuotas
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

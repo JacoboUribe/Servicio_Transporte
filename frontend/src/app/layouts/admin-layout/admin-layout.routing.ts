@@ -15,7 +15,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     {
         path: 'bills',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -25,7 +25,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'cities',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -35,7 +35,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'contracts',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -45,7 +45,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'customers',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -55,7 +55,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'departments',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -65,7 +65,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'order-routes',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -75,7 +75,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'routes',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -85,7 +85,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'shares',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -95,7 +95,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'vehicles',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -105,7 +105,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'natural-peoples',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',
@@ -115,7 +115,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'addresses',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         children: [
             {
                 path: '',

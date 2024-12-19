@@ -14,6 +14,9 @@ export class ShareService {
   list(): Observable<Share[]> {
     return this.http.get<Share[]>(`${environment.url_ms_cinema}/shares`);
   }
+  listByContract(contractId:number): Observable<Share[]>{
+    return this.http.get<Share[]>(`${environment.url_ms_cinema}/shares?contract_id=${contractId}`)
+  }
   delete(id: number) {
     return this.http.delete<Share>(
       `${environment.url_ms_cinema}/shares/${id}`
@@ -36,4 +39,6 @@ export class ShareService {
       `${environment.url_ms_cinema}/shares/${Share.id}`,
       Share
     );
-  }}
+  }
+
+}

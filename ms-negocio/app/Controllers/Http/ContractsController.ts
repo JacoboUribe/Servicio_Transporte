@@ -12,6 +12,9 @@ export default class ContractsController {
             return theContract;
         } else {
             const data = request.all()
+            if("customer_id" in data){
+                return await Contract.query().where("customer_id", request.input("customer_id"))
+                }
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);

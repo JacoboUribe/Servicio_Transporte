@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/address.model';
 import { AddressService } from 'src/app/services/address.service';
 import Swal from 'sweetalert2';
@@ -10,17 +10,23 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
+  cityId = 0;
   addresses: Address[];
 
-  constructor(private addressesService: AddressService, private router: Router) {
+  constructor(private addressesService: AddressService, private router: Router, private route:ActivatedRoute) {
     console.log("Constructor");
     this.addresses = [];
+    this.cityId = 0;
   }
 
   ngOnInit(): void {
-    console.log("Ng");
-    this.list();
+    this.cityId = Number(this.route.snapshot.params['id']);
+    const currentUrl = this.route.snapshot.url.join('/');
+    if (currentUrl.includes('filterByCity')) {
+      this.filterByCity();
+    } else {
+      this.list();
+    }
   }
   list() {
     this.addressesService.list().subscribe((data) => {
@@ -56,6 +62,11 @@ export class ListComponent implements OnInit {
   }
   update(id: number) {
     this.router.navigate(["addresses/update", id]);
+  }
+  filterByCity() {
+    this.addressesService.listByCity(this.cityId).subscribe(data => {
+      this.addresses = data;
+    });
   }
 
 }

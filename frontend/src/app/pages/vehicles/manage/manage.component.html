@@ -13,7 +13,7 @@
                 <form class="form" [formGroup]="vehicleFormGroup">
                     <div class="card-body">
                         <!-- ID -->
-                        <div class="row">
+                        <div class="row">       
                             <div class="col-4">
                                 <label>ID:</label>
                             </div>
@@ -67,6 +67,64 @@
                             </div>
                         </div>
                         <br />
+                        <div class="row">
+                            <div class="col-4">
+                              <label>Latitud inicial:</label>
+                            </div>
+                            <div class="col-8">
+                              <input
+                                type="number"
+                                formControlName="latitud_inicial"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                          <br />
+                          <!-- ------------------------------------------------- -->
+                          <div class="row">
+                            <div class="col-4">
+                              <label>Longitud inicial:</label>
+                            </div>
+                            <div class="col-8">
+                              <input
+                                type="number"
+                                formControlName="longitud_inicial"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                          <br />
+                          <div class="row">
+                            <div class="col-4">
+                              <label>Latitud final:</label>
+                            </div>
+                            <div class="col-8">
+                              <input
+                                type="number"
+                                formControlName="latitud_final"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                          <br />
+                          <div class="row">
+                            <div class="col-4">
+                              <label>Longitud final:</label>
+                            </div>
+                            <div class="col-8">
+                              <input
+                                type="number"
+                                class="form-control"
+                                [(ngModel)]="vehicle.longitud_final"
+                              />
+                              <input
+                                type="number"
+                                formControlName="longitud_final"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                          <br />
                         <!-- Botones -->
                         <div class="row">
                             <div class="col-4"></div>

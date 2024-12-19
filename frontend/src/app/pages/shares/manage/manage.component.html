@@ -62,6 +62,25 @@
                             </div>
                         </div>
                         <br />
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Estatus</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="checkbox" class="form-control" [(ngModel)]="share.status" formControlName="status">
+                                <!-- Cambia esta línea -->
+                                <div *ngIf="
+                                    formControls.status.errors && 
+                                    (formControls.status.dirty || 
+                                     formControls.status.touched || 
+                                     trySend)
+                                ">
+                                    <strong *ngIf="formControls.status.errors?.['required']"
+                                        class="msnError text-danger">Requerido</strong>
+                                </div>
+                            </div>  
+                        </div>
+                        <br>
                         <!-- Contract ID -->
                         <div class="row">
                             <div class="col-4">

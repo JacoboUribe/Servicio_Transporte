@@ -50,6 +50,10 @@ export class ListComponent implements OnInit {
     });
   }
 
+  location(id:number){
+    this.router.navigate(["vehicles/location/"+ id])
+  }
+
   create() {
     this.router.navigate(["vehicles/create"]);
   }

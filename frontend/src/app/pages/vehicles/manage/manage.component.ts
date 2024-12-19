@@ -17,23 +17,28 @@ export class ManageComponent implements OnInit {
   vehicleFormGroup: FormGroup;
   trySend: boolean;
 
+
   constructor(
     private vehicleService: VehicleService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.vehicle = {
       id: 0,
       license: '',
       model: '',
-      load_capacity: 0
+      load_capacity: 0,
+      latitud_inicial: 0,
+      latitud_final: 0,
+      longitud_inicial: 0,
+      longitud_final: 0
     };
     this.mode = 0;
     this.trySend = false;
     this.configFormGroup();
   }
-
+  
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -43,18 +48,22 @@ export class ManageComponent implements OnInit {
     } else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
-
     if (this.activateRoute.snapshot.params.id) {
       this.vehicle.id = this.activateRoute.snapshot.params.id;
       this.getVehicle(this.vehicle.id);
     }
   }
 
+
   configFormGroup() {
     this.vehicleFormGroup = this.formBuilder.group({
       license: ['', [Validators.required, Validators.maxLength(255)]],
       model: ['', [Validators.required, Validators.maxLength(255)]],
-      load_capacity: [0, [Validators.required, Validators.min(0)]]
+      load_capacity: [0, [Validators.required, Validators.min(0)]],
+      latitud_inicial: [this.vehicle.latitud_inicial, Validators.required],
+      latitud_final: [this.vehicle.latitud_final, Validators.required],
+      longitud_inicial: [this.vehicle.longitud_inicial, Validators.required],
+      longitud_final: [this.vehicle.longitud_final, Validators.required]
     });
   }
 
@@ -82,6 +91,7 @@ export class ManageComponent implements OnInit {
     });
   }
 
+
   update() {
     if (this.vehicleFormGroup.invalid) {
       this.trySend = true;
@@ -94,4 +104,11 @@ export class ManageComponent implements OnInit {
       this.router.navigate(['/vehicles/list']);
     });
   }
+  location() {
+    console.log(JSON.stringify(this.vehicle));
+    this.vehicleService.update(this.vehicle).subscribe((data) => {
+      Swal.fire("Actualizado", " se ha actualizado exitosa mente", "success"); //titulo a la alerta
+      this.router.navigate(["/vehicles/list"]);
+  });
+}
 }

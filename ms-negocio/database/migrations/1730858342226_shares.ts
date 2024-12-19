@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.double('amount')
       table.double('interest')
+      table.boolean('status')
       table.integer('contract_id')
         .unsigned()
         .references('contracts.id')

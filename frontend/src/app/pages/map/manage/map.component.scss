@@ -1,0 +1,10 @@
+#map-container {
+  border: 2px solid #28a745; /* Borde del recuadro con color verde */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado entre el borde y el mapa */
+}
+
+#map {
+  height: 100%; /* El mapa ocupará el 100% de la altura del contenedor */
+  width: 100%; /* El mapa ocupará el 100% del ancho de su contenedor */
+}

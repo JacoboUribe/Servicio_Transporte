@@ -9,6 +9,9 @@ export default class BillsController {
             return theBill;
         } else {
             const data = request.all()
+            if("share_id" in data){
+                return await Bill.query().where("share_id", request.input("share_id"))
+            }
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);

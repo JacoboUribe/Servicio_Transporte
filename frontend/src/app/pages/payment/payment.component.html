@@ -1,0 +1,234 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow border-0">
+        <div class="card-header bg-info text-white border-0">
+          <h1 class="mb-0">Formulario de Pago</h1>
+        </div>
+        <form class="form" #paymentForm="ngForm">
+          <div class="card-body">
+            <!-- Número de Cuota -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">ID de Cuota</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.share_id"
+                  name="share_id"
+                  placeholder="ID de cuota"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <!-- Número de Tarjeta -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Número de Tarjeta</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.card_number"
+                  name="card_number"
+                  placeholder="Ingrese número de tarjeta"
+                />
+              </div>
+            </div>
+
+            <!-- Fecha de Expiración -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Fecha de Expiración</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.exp_month"
+                  name="exp_month"
+                  placeholder="MM"
+                />
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.exp_year"
+                  name="exp_year"
+                  placeholder="YYYY"
+                />
+              </div>
+            </div>
+
+            <!-- CVC -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">CVC</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.cvc"
+                  name="cvc"
+                  placeholder="Ingrese CVC"
+                />
+              </div>
+            </div>
+
+            <!-- Nombre del Titular -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Nombre</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.name"
+                  name="name"
+                  placeholder="Nombre del titular"
+                />
+              </div>
+            </div>
+
+            <!-- Apellido -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Apellido</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.last_name"
+                  name="last_name"
+                  placeholder="Apellido del titular"
+                />
+              </div>
+            </div>
+
+            <!-- Documento -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Número de Documento</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.doc_number"
+                  name="doc_number"
+                  placeholder="Ingrese número de documento"
+                />
+              </div>
+            </div>
+
+            <!-- Ciudad -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Ciudad</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.city"
+                  name="city"
+                  placeholder="Ingrese ciudad"
+                />
+              </div>
+            </div>
+
+            <!-- Dirección -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Dirección</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.address"
+                  name="address"
+                  placeholder="Ingrese dirección"
+                />
+              </div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Teléfono</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.phone"
+                  name="phone"
+                  placeholder="Ingrese número de teléfono"
+                />
+              </div>
+            </div>
+
+            <!-- Celular -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Celular</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.cell_phone"
+                  name="cell_phone"
+                  placeholder="Ingrese número de celular"
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row align-items-center mb-3">
+              <div class="col-4 text-right">
+                <label class="font-weight-bold">Email</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="email"
+                  class="form-control border-primary"
+                  [(ngModel)]="payment.email"
+                  name="email"
+                  placeholder="Ingrese su correo electrónico"
+                />
+              </div>
+            </div>
+
+            <!-- Botón para Enviar -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  (click)="create()"
+                  [disabled]="loading"
+                >
+                  <span>Pagar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

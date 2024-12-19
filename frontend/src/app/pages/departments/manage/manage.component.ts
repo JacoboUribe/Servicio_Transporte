@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { City } from 'src/app/models/city.model';
 import { Department } from 'src/app/models/department.model';
+import { CityService } from 'src/app/services/city.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import Swal from 'sweetalert2';
 
@@ -11,7 +13,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
-
   department: Department;
   mode: number;
   departmentFormGroup: FormGroup;
@@ -21,7 +22,7 @@ export class ManageComponent implements OnInit {
     private departmentService: DepartmentService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.department = {
       id: 0,
@@ -32,6 +33,7 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.configFormGroup();
   }
+
 
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -53,6 +55,7 @@ export class ManageComponent implements OnInit {
     this.departmentFormGroup = this.formBuilder.group({
       department_name: ['', [Validators.required, Validators.maxLength(100)]],
       region: ['', [Validators.required, Validators.maxLength(100)]],
+      city_id: [null, Validators.required]
     });
   }
 

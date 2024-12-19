@@ -11,7 +11,6 @@ export class VehicleService {
 
   constructor(private http: HttpClient) {}
 
-  //observable es una clase que permite manejar eventos asincronos
   list(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(`${environment.url_ms_cinema}/vehicles`);
   }
@@ -34,7 +33,6 @@ export class VehicleService {
       Vehicle
     );
   }
-  //en la proxima clase colocamos el interceptor
 
   update(Vehicle: Vehicle): Observable<Vehicle> {
     return this.http.put<Vehicle>(
@@ -42,4 +40,5 @@ export class VehicleService {
       Vehicle
     );
   }
+
 }

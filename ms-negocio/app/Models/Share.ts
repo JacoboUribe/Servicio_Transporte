@@ -16,6 +16,9 @@ export default class Share extends BaseModel {
   @column()
   public contract_id:number
 
+  @column()
+  public status: Boolean
+
   @belongsTo(() => Contract, {
     foreignKey: 'contract_id'
   })
